@@ -1,4 +1,3 @@
-import { Component } from "react";
 import {
   Typography,
   Card,
@@ -7,6 +6,8 @@ import {
   CardActionArea,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   styledText: {
@@ -17,63 +18,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-class ListElementsClass extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [],
-    };
-  }
+export default function ListElements(props) {
+  const classes = useStyles();
+  let [list, setList] = useState([]);
 
-  componentDidMount() {
-    fetch(this.props.url || "http://0.0.0.0")
+  useEffect(() => {
+    fetch(props.url || "http://0.0.0.0")
       .then((res) => {
         return res.json();
       })
       .then((res) => {
-        this.setState({ list: res.data });
+        setList(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
-  }
+  });
 
-  render() {
-    return (
-      <Grid container spacing={2}>
-        {this.state.list.map((value) => {
-          return (
-            <Grid item key={value._id} className={this.props.classes.stretch}>
-              <Card>
-                <CardActionArea
-                  onClick={() => {
-                    console.log("clicked on card " + value.title);
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="h5">{value.title}</Typography>
+  return (
+    <Grid container spacing={2}>
+      {list.map((value) => {
+        return (
+          <Grid item key={value._id} className={classes.stretch}>
+            <Card>
+              <CardActionArea
+                onClick={() => {
+                  console.log("clicked on card " + value.title);
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5">{value.title}</Typography>
 
-                    <Typography
-                      variant="subtitle2"
-                      className={this.props.classes.styledText}
-                      paragraph
-                      color="textSecondary"
-                    >
-                      {value.originalPoster}
-                    </Typography>
-                    <Typography>{value.description}</Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
-    );
-  }
-}
-
-export default function ListElements(props) {
-  const classes = useStyles();
-  return <ListElementsClass classes={classes} url={props.url} />;
+                  <Typography
+                    variant="subtitle2"
+                    className={classes.styledText}
+                    paragraph
+                    color="textSecondary"
+                  >
+                    {value.originalPoster}
+                  </Typography>
+                  <Typography>{value.description}</Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        );
+      })}
+    </Grid>
+  );
 }
