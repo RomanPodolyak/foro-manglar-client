@@ -10,9 +10,9 @@ import {
   ButtonGroup,
   ButtonBase,
 } from "@material-ui/core";
-import Album from "./components/Album";
+import Album from "./testComponents/Album";
 import Drawer from "./components/Drawer";
-import TestText from "./components/TestText";
+import TestText from "./testComponents/TestText";
 import ListElements from "./components/ListElements";
 import {
   BrowserRouter as Router,
