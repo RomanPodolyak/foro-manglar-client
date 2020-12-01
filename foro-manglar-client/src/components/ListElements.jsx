@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ListElements(props) {
   const classes = useStyles();
-  let [list, setList] = useState([]);
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     fetch(props.url || "http://0.0.0.0")
@@ -33,7 +33,7 @@ export default function ListElements(props) {
       .catch((err) => {
         console.error(err);
       });
-  });
+  }, [props.url]);
 
   return (
     <Grid container spacing={2}>
