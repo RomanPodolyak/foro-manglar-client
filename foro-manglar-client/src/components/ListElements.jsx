@@ -27,12 +27,14 @@ export default function ListElements(props) {
       .then((res) => {
         return res.json();
       })
-      .then((res) => {
-        setList(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(
+        (res) => {
+          setList(res.data);
+        },
+        (error) => {
+          console.log("error :>> ", error);
+        }
+      );
   }, [props.url]);
 
   return (
