@@ -9,6 +9,8 @@ import {
   Typography,
   ButtonGroup,
   ButtonBase,
+  Divider,
+  Container,
 } from "@material-ui/core";
 import Album from "./testComponents/Album";
 import Drawer from "./components/Drawer";
@@ -22,6 +24,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import RouterButton from "./components/RouterButton";
+import { Home } from "@material-ui/icons";
 
 const StyledButton = styled(Button)({
   textTransform: "none",
@@ -38,46 +41,55 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Drawer>
-          <Grid container spacing={2} direction="column">
-            <Grid item>
-              <StyledButton
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  this.setState({
-                    stupidButton: true,
-                  });
-                }}
-              >
-                /api/test
-              </StyledButton>
-
-              {this.state.stupidButton && <LoginInfo />}
-            </Grid>
-            <Grid item>
-              <ButtonGroup variant="outlined" color="primary">
-                <RouterButton to="/a">a</RouterButton>
-                <RouterButton to="/b">b</RouterButton>
-                <RouterButton to="/c">c</RouterButton>
-              </ButtonGroup>
-
-              <RouterButton variant="contained" color="secondary" to="/aCagar">
-                a cagar
-              </RouterButton>
-            </Grid>
-            <Grid item>
-              <Typography variant="h4">Temas</Typography>
-              <ListElements url="http://192.168.1.41:8880/api/read/themes/all" />
-            </Grid>
-            <Grid item>
-              <TestText />
-            </Grid>
-            <Grid item>
-              <Album />
-            </Grid>
-          </Grid>
-        </Drawer>
+        <Switch>
+          <Route exact path="/login"></Route>
+          <Route exact path="/register"></Route>
+          <Route path="/">
+            <Drawer>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <ButtonGroup variant="contained" color="secondary">
+                    <RouterButton startIcon={<Home />} to="/">
+                      home
+                    </RouterButton>
+                    <RouterButton to="/read/themes/all">themes</RouterButton>
+                    <RouterButton to="/test-api">test api</RouterButton>
+                    <RouterButton to="/test-text">test text</RouterButton>
+                    <RouterButton to="/test-album">test album</RouterButton>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item>
+                  <Switch>
+                    <Route exact path="/read/themes/all">
+                      <Typography variant="h4">Temas</Typography>
+                      <ListElements url="http://192.168.1.41:8880/api/read/themes/all" />
+                    </Route>
+                    <Route exact path="/test-api">
+                      <StyledButton
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          this.setState({
+                            stupidButton: true,
+                          });
+                        }}
+                      >
+                        /api/test
+                      </StyledButton>
+                      {this.state.stupidButton && <LoginInfo />}
+                    </Route>
+                    <Route exact path="/test-text">
+                      <TestText />
+                    </Route>
+                    <Route exact path="/test-album">
+                      <Album />
+                    </Route>
+                  </Switch>
+                </Grid>
+              </Grid>
+            </Drawer>
+          </Route>
+        </Switch>
       </Router>
     );
   }
