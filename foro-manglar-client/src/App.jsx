@@ -41,7 +41,9 @@ export default function App() {
                 <Switch>
                   <Route exact path="/read/themes/all">
                     <Typography variant="h4">Temas</Typography>
-                    <ListElements url="http://192.168.1.41:8880/api/read/themes/all" />
+                    <ListElements
+                      url={`${process.env.REACT_APP_SERVER_API}/read/themes/all`}
+                    />
                   </Route>
                   <Route exact path="/test-api">
                     <StyledButton

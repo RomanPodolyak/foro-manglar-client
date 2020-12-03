@@ -2,12 +2,14 @@ import { Box } from "@material-ui/core";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function LoginInfo() {
+export default function LoginInfo(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState(undefined);
 
   useEffect(() => {
-    fetch("http://192.168.1.41:8880/api/test")
+    fetch(`${process.env.REACT_APP_SERVER_API}/test`, {
+      credentials: "include",
+    })
       .then((res) => {
         return res.json();
       })
