@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { styled } from "@material-ui/core/styles";
 import "./App.css";
-import { Button, Grid, Typography, ButtonGroup } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Typography,
+  ButtonGroup,
+  Hidden,
+} from "@material-ui/core";
 import Album from "./testComponents/Album";
 import Drawer from "./components/Drawer";
 import TestText from "./testComponents/TestText";
@@ -10,6 +16,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RouterButton from "./components/RouterButton";
 import { Home } from "@material-ui/icons";
 import LoginInfo from "./testComponents/TestApi";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 
 const StyledButton = styled(Button)({
   textTransform: "none",
@@ -21,8 +29,12 @@ export default function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/login"></Route>
-        <Route exact path="/register"></Route>
+        <Route exact path="/login">
+          <SignIn />
+        </Route>
+        <Route exact path="/register">
+          <SignUp />
+        </Route>
         <Route path="/">
           <Drawer>
             <Grid container direction="column" spacing={2}>
@@ -39,6 +51,14 @@ export default function App() {
               </Grid>
               <Grid item>
                 <Switch>
+                  <Route exact path="/">
+                    <Hidden xsUp>
+                      <Typography variant="h3">Hola, Myri :)</Typography>
+                      <Typography variant="h3" color="secondary">
+                        Te quiero &lt;3
+                      </Typography>
+                    </Hidden>
+                  </Route>
                   <Route exact path="/read/themes/all">
                     <Typography variant="h4">Temas</Typography>
                     <ListElements
