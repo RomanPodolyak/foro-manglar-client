@@ -10,11 +10,16 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import { Hidden } from "@material-ui/core";
+import { Box, Hidden } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useHistory } from "react-router-dom";
+import useUser from "../hooks/useUser";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { logout } from "../helpers/fetch";
 
 const drawerWidth = 240;
 
@@ -55,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DrawerManglar(props) {
   const classes = useStyles();
+  const history = useHistory();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { window } = props;
   const container =
@@ -65,29 +71,62 @@ export default function DrawerManglar(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const [userData, setUserData] = useUser();
+
   const drawer = (
     <div className={classes.drawerContainer}>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
+        <Box display={userData ? "inline" : "none"}>
+          <ListItem>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <AccountCircleIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText>
+              {userData ? userData.username : undefined}
+            </ListItemText>
           </ListItem>
-        ))}
+          <Divider />
+          <ListItem
+            button
+            href="/"
+            onClick={() => {
+              logout();
+              setUserData();
+            }}
+          >
+            <ListItemIcon>
+              <LockOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+          </ListItem>
+        </Box>
+        <Box display={userData ? "none" : "inline"}>
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/login");
+            }}
+          >
+            <ListItemIcon>
+              <LockOpenIcon />
+            </ListItemIcon>
+            <ListItemText>Login</ListItemText>
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/register");
+            }}
+          >
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText>Register</ListItemText>
+          </ListItem>
+        </Box>
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      <List></List>
     </div>
   );
 
