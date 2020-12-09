@@ -97,7 +97,7 @@ export default function DrawerManglar(props) {
             <ListItemIcon>
               <LockOutlinedIcon />
             </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
+            <ListItemText>Cerrar sesión</ListItemText>
           </ListItem>
         </Box>
         <Box display={userData ? "none" : "inline"}>
@@ -110,7 +110,7 @@ export default function DrawerManglar(props) {
             <ListItemIcon>
               <LockOpenIcon />
             </ListItemIcon>
-            <ListItemText>Login</ListItemText>
+            <ListItemText>Iniciar sesión</ListItemText>
           </ListItem>
           <ListItem
             button
@@ -121,12 +121,11 @@ export default function DrawerManglar(props) {
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText>Register</ListItemText>
+            <ListItemText>Registrarse</ListItemText>
           </ListItem>
         </Box>
       </List>
       <Divider />
-      <List></List>
     </div>
   );
 
