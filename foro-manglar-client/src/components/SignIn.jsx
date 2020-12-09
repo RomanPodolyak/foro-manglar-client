@@ -3,8 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -13,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { validateUsername, validatePassword } from "../helpers/validators";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,20 +38,31 @@ export default function SignIn() {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [buttonText, setButtonText] = useState("sign in");
+  const [buttonText, setButtonText] = useState("Iniciar Sesión");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [buttonColor, setButtonColor] = useState("primary");
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    setUsernameError(!validateUsername(event.target.value));
+    resetButton();
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setPasswordError(!validatePassword(event.target.value));
+    resetButton();
+  };
+
+  const resetButton = () => {
+    setButtonText("Iniciar sesión");
+    setButtonColor("primary");
   };
 
   const handleSubmit = () => {
-    setButtonText("loading...");
+    setButtonText("cargando...");
     setButtonDisabled(true);
     const requestOptions = {
       method: "POST",
@@ -69,14 +79,14 @@ export default function SignIn() {
             history.push("/");
           } else {
             console.log("error");
-            setButtonText("sign in");
-            setButtonColor("primary");
+            setButtonText("error de credenciales");
+            setButtonColor("secondary");
             setButtonDisabled(false);
           }
         },
         (error) => {
           console.log("error :>> ", error);
-          setButtonText("an error occurred");
+          setButtonText("un error ha ocurrido");
           setButtonColor("secondary");
           setButtonDisabled(false);
         }
@@ -89,8 +99,8 @@ export default function SignIn() {
     }
   };
 
-  const handleLoginClick = () => {
-    history.push("/login");
+  const handleSignupClick = () => {
+    history.push("/register");
   };
 
   return (
@@ -101,7 +111,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Iniciar sesión
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -110,13 +120,15 @@ export default function SignIn() {
             required
             fullWidth
             id="username"
-            label="User Name"
+            label="Nombre de usuario"
             name="username"
             autoComplete="username"
             autoFocus
             value={username}
             onChange={handleUsernameChange}
             onKeyDown={handleKeyDown}
+            error={usernameError}
+            helperText="5-24 caracteres, la mayoria de los simbolos no estan permitidos"
           />
           <TextField
             variant="outlined"
@@ -124,17 +136,15 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Contraseña"
             type="password"
             id="password"
             autoComplete="current-password"
             value={password}
             onChange={handlePasswordChange}
             onKeyDown={handleKeyDown}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            error={passwordError}
+            helperText="Min 10 letras. Debe contener minusculas, mayusculas y numeros"
           />
           <Button
             type="button"
@@ -143,14 +153,14 @@ export default function SignIn() {
             color={buttonColor}
             className={classes.submit}
             onClick={handleSubmit}
-            disabled={buttonDisabled}
+            disabled={buttonDisabled || passwordError || usernameError}
           >
             {buttonText}
           </Button>
           <Grid container>
             <Grid item>
-              <Link onClick={handleLoginClick} variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link onClick={handleSignupClick} variant="body2">
+                {"¿No tienes cuenta? Regístrate"}
               </Link>
             </Grid>
           </Grid>

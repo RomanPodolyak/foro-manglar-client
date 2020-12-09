@@ -11,6 +11,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import {
+  validateUsername,
+  validatePassword,
+  validateEmail,
+} from "../helpers/validators";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,24 +43,30 @@ export default function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [buttonText, setButtonText] = useState("sign up");
+  const [buttonText, setButtonText] = useState("Registrarse");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [buttonColor, setButtonColor] = useState("primary");
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    setUsernameError(!validateUsername(event.target.value));
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setPasswordError(!validatePassword(event.target.value));
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setEmailError(!validateEmail(event.target.value));
   };
 
   const handleSubmit = () => {
-    setButtonText("loading...");
+    setButtonText("cargando...");
     setButtonDisabled(true);
     const requestOptions = {
       method: "POST",
@@ -72,14 +83,14 @@ export default function SignUp() {
             history.push("/");
           } else {
             console.log("error");
-            setButtonText("sign up");
+            setButtonText("Registrarse");
             setButtonColor("primary");
             setButtonDisabled(false);
           }
         },
         (error) => {
           console.log("error :>> ", error);
-          setButtonText("an error occurred");
+          setButtonText("Un error ha ocurrido");
           setButtonColor("secondary");
           setButtonDisabled(false);
         }
@@ -104,7 +115,7 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Registrarse
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -116,11 +127,13 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="username"
-                label="User Name"
+                label="Nombre de usuario"
                 autoFocus
                 value={username}
                 onChange={handleUsernameChange}
                 onKeyDown={handleKeyDown}
+                error={usernameError}
+                helperText="5-24 caracteres, la mayoria de los simbolos no estan permitidos"
               />
             </Grid>
             <Grid item xs={12}>
@@ -129,12 +142,14 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Correo electrónico"
                 name="email"
                 autoComplete="email"
                 value={email}
                 onChange={handleEmailChange}
                 onKeyDown={handleKeyDown}
+                error={emailError}
+                helperText="Debe de ser un correo válido"
               />
             </Grid>
             <Grid item xs={12}>
@@ -143,13 +158,15 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Contraseña"
                 type="password"
                 id="password"
                 autoComplete="current-password"
                 value={password}
                 onChange={handlePasswordChange}
                 onKeyDown={handleKeyDown}
+                error={passwordError}
+                helperText="Min 10 letras. Debe contener minusculas, mayusculas y numeros"
               />
             </Grid>
           </Grid>
@@ -160,14 +177,16 @@ export default function SignUp() {
             color={buttonColor}
             className={classes.submit}
             onClick={handleSubmit}
-            disabled={buttonDisabled}
+            disabled={
+              buttonDisabled || usernameError || emailError || passwordError
+            }
           >
             {buttonText}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link onClick={handleLoginClick} variant="body2">
-                Already have an account? Sign in
+                ¿Ya tienes cuenta? Inicia sesión
               </Link>
             </Grid>
           </Grid>
