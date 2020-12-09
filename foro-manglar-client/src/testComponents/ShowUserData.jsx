@@ -2,7 +2,7 @@ import { Box } from "@material-ui/core";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function LoginInfo(props) {
+export default function ShowUserData(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState(undefined);
 
