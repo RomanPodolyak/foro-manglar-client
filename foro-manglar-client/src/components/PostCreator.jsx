@@ -90,7 +90,7 @@ export default function PostCreator(props) {
                     if (res.status === "ok") {
                       props.hide();
                       getPosts(props.id).then((res) => {
-                        props.update(res);
+                        props.update(res.reverse());
                       });
                     }
                   });

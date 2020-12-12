@@ -1,7 +1,6 @@
 import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
 import { Add, Cancel, Edit } from "@material-ui/icons";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import createElement from "../helpers/createElement";
 import editElement from "../helpers/editElement";
 import getComments from "../helpers/getComments";
@@ -9,7 +8,6 @@ import { validateContent } from "../helpers/validators";
 
 export default function PostCreator(props) {
   const [content, setContent] = useState("");
-  const history = useHistory();
   const [contentError, setContentError] = useState(false);
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function PostCreator(props) {
                     if (res.status === "ok") {
                       props.hide();
                       getComments(props.id).then((res) => {
-                        props.update(res);
+                        props.update(res.reverse());
                       });
                     }
                   });
@@ -77,7 +75,7 @@ export default function PostCreator(props) {
                     if (res.status === "ok") {
                       props.hide();
                       getComments(props.id).then((res) => {
-                        props.update(res);
+                        props.update(res.reverse());
                       });
                     }
                   });

@@ -60,7 +60,7 @@ export default function ListThemesPosts(props) {
   useEffect(() => {
     getComments(postId).then((res) => {
       console.log(res);
-      setCommentList(res);
+      setCommentList(res.reverse());
     });
   }, [postId]);
 
@@ -286,7 +286,7 @@ export default function ListThemesPosts(props) {
                   console.log("res :>> ", res);
                   if (res.status === "ok") {
                     getComments(currentPost._id).then((res) => {
-                      setCommentList(res);
+                      setCommentList(res.reverse());
                     });
                   }
                 });

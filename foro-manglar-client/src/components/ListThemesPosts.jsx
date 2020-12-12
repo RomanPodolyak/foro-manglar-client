@@ -71,7 +71,7 @@ export default function ListThemesPosts(props) {
       .then(
         (res) => {
           if (res.status === "ok") {
-            setThemeList(res.data);
+            setThemeList(res.data.reverse());
           } else {
             console.log("error fetching themes");
           }
@@ -89,7 +89,7 @@ export default function ListThemesPosts(props) {
       .then(
         (res) => {
           if (res.status === "ok") {
-            setPostList(res.data);
+            setPostList(res.data.reverse());
           } else {
             console.log("error fetching posts");
           }
@@ -494,11 +494,11 @@ export default function ListThemesPosts(props) {
                   if (res.status === "ok") {
                     if (itemAnchorEl.name === "theme") {
                       getThemes(currentTheme._id).then((res) => {
-                        setThemeList(res);
+                        setThemeList(res.reverse());
                       });
                     } else {
                       getPosts(currentTheme._id).then((res) => {
-                        setPostList(res);
+                        setPostList(res.reverse());
                       });
                     }
                   }
