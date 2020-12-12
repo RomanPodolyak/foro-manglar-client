@@ -90,7 +90,7 @@ export default function ThemeCreator(props) {
                     if (res.status === "ok") {
                       props.hide();
                       getThemes(props.id).then((res) => {
-                        props.update(res.reverse());
+                        props.update(res);
                       });
                     }
                   });

@@ -71,7 +71,7 @@ export default function ListThemesPosts(props) {
       .then(
         (res) => {
           if (res.status === "ok") {
-            setThemeList(res.data.reverse());
+            setThemeList(res.data);
           } else {
             console.log("error fetching themes");
           }
@@ -494,7 +494,7 @@ export default function ListThemesPosts(props) {
                   if (res.status === "ok") {
                     if (itemAnchorEl.name === "theme") {
                       getThemes(currentTheme._id).then((res) => {
-                        setThemeList(res.reverse());
+                        setThemeList(res);
                       });
                     } else {
                       getPosts(currentTheme._id).then((res) => {

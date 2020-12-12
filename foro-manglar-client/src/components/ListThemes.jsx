@@ -61,7 +61,7 @@ export default function ListThemes(props) {
       })
       .then(
         (res) => {
-          setList(res.data.reverse());
+          setList(res.data);
         },
         (error) => {
           console.log("error :>> ", error);
@@ -241,7 +241,7 @@ export default function ListThemes(props) {
                   console.log("res :>> ", res);
                   if (res.status === "ok") {
                     getThemes().then((res) => {
-                      setList(res.reverse());
+                      setList(res);
                     });
                   }
                 });
