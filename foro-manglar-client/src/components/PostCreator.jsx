@@ -37,7 +37,7 @@ export default function PostCreator(props) {
             name="title"
             variant="outlined"
             label="Título"
-            placeholder="10-200 letras"
+            placeholder="3-200 letras"
             fullWidth
             value={title}
             onChange={(event) => {
