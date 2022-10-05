@@ -23,7 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Add, ArrowBack, Home, MoreVert } from "@material-ui/icons";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { spanishDate } from "../helpers/dateConverter";
 import CommentCreator from "./CommentCreator";
 import getComments from "../helpers/getComments";
@@ -50,7 +50,7 @@ export default function ListThemesPosts(props) {
   const [currentPost, setCurrentPost] = useState({});
   const [commentCreatorVisible, setCommentCreatorVisible] = useState(false);
   const { postId } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [currentSelectedComment, setCurrentSelectedComment] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
@@ -148,7 +148,7 @@ export default function ListThemesPosts(props) {
           <Button
             startIcon={<ArrowBack />}
             onClick={() => {
-              history.push(`/themes/${currentPost.parentTheme}`);
+              navigate(`/themes/${currentPost.parentTheme}`);
             }}
           >
             Atrás
@@ -156,7 +156,7 @@ export default function ListThemesPosts(props) {
           <Button
             startIcon={<Home />}
             onClick={() => {
-              history.push("/");
+              navigate("/");
             }}
           >
             inicio

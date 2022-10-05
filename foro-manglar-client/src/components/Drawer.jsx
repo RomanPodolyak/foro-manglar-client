@@ -16,7 +16,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { useHistory } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import useUser from "../hooks/useUser";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { logout } from "../helpers/fetch";
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DrawerManglar(props) {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { window } = props;
   const container =
@@ -74,59 +74,64 @@ export default function DrawerManglar(props) {
   const [userData, setUserData] = useUser();
 
   const drawer = (
-    <div className={classes.drawerContainer}>
-      <List>
-        <Box display={userData ? "inline" : "none"}>
-          <ListItem>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              {userData ? userData.username : undefined}
-            </ListItemText>
-          </ListItem>
+    <Grid container direction="column" spacing={2}>
+      <Grid item>
+        <div className={classes.drawerContainer}>
+          <List>
+            <Box display={userData ? "inline" : "none"}>
+              <ListItem>
+                <ListItemIcon>
+                  <AccountCircleIcon />
+                </ListItemIcon>
+                <ListItemText>
+                  {userData ? userData.username : undefined}
+                </ListItemText>
+              </ListItem>
+              <Divider />
+              <ListItem
+                button
+                href="/"
+                onClick={() => {
+                  logout();
+                  setUserData();
+                }}
+              >
+                <ListItemIcon>
+                  <LockOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText>Cerrar sesión</ListItemText>
+              </ListItem>
+            </Box>
+            <Box display={userData ? "none" : "inline"}>
+              <ListItem
+                button
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                <ListItemIcon>
+                  <LockOpenIcon />
+                </ListItemIcon>
+                <ListItemText>Iniciar sesión</ListItemText>
+              </ListItem>
+              <ListItem
+                button
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText>Registrarse</ListItemText>
+              </ListItem>
+            </Box>
+          </List>
           <Divider />
-          <ListItem
-            button
-            href="/"
-            onClick={() => {
-              logout();
-              setUserData();
-            }}
-          >
-            <ListItemIcon>
-              <LockOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText>Cerrar sesión</ListItemText>
-          </ListItem>
-        </Box>
-        <Box display={userData ? "none" : "inline"}>
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/login");
-            }}
-          >
-            <ListItemIcon>
-              <LockOpenIcon />
-            </ListItemIcon>
-            <ListItemText>Iniciar sesión</ListItemText>
-          </ListItem>
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/register");
-            }}
-          >
-            <ListItemIcon>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText>Registrarse</ListItemText>
-          </ListItem>
-        </Box>
-      </List>
-      <Divider />
-    </div>
+        </div>
+        <Outlet />
+      </Grid>
+    </Grid>
   );
 
   return (

@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
 import { Add, Cancel, Edit } from "@material-ui/icons";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import createElement from "../helpers/createElement";
 import editElement from "../helpers/editElement";
 import getThemes from "../helpers/getThemes";
@@ -11,7 +11,7 @@ import { validateTitle, validateDescription } from "../helpers/validators";
 export default function ThemeCreator(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const [titleError, setTitleError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
 
@@ -98,7 +98,7 @@ export default function ThemeCreator(props) {
                   createElement(url, obj).then((res) => {
                     if (res.status === "ok") {
                       props.hide();
-                      history.push(`/themes/${res.info.objectId}`);
+                      navigate(`/themes/${res.info.objectId}`);
                     }
                   });
                 }

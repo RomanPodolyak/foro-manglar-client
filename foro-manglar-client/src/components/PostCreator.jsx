@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
 import { Add, Cancel, Edit } from "@material-ui/icons";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import createElement from "../helpers/createElement";
 import editElement from "../helpers/editElement";
 import getPosts from "../helpers/getPosts";
@@ -11,7 +11,7 @@ import { validateTitle, validateContent } from "../helpers/validators";
 export default function PostCreator(props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const [titleError, setTitleError] = useState(false);
   const [contentError, setContentError] = useState(false);
 
@@ -98,7 +98,7 @@ export default function PostCreator(props) {
                   createElement(url, obj).then((res) => {
                     if (res.status === "ok") {
                       props.hide();
-                      history.push(`/posts/${res.info.objectId}`);
+                      navigate(`/posts/${res.info.objectId}`);
                     }
                   });
                 }

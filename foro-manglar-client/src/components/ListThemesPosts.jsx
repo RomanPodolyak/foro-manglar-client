@@ -24,7 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Add, ArrowBack, Home, MoreVert } from "@material-ui/icons";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { spanishDate } from "../helpers/dateConverter";
 import PostCreator from "./PostCreator";
 import ThemeCreator from "./ThemeCreator";
@@ -55,7 +55,7 @@ export default function ListThemesPosts(props) {
   const [themeCreatorVisible, setThemeCreatorVisible] = useState(false);
   const [postCreatorVisible, setPostCreatorVisible] = useState(false);
   const { themeId } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [fabAnchorEl, setFabAnchorEl] = useState(null);
   const [itemAnchorEl, setItemAnchorEl] = useState(null);
   const [themeEdit, setThemeEdit] = useState(false);
@@ -221,9 +221,9 @@ export default function ListThemesPosts(props) {
             startIcon={<ArrowBack />}
             onClick={() => {
               if (currentTheme.parentTheme) {
-                history.push(`/themes/${currentTheme.parentTheme}`);
+                navigate(`/themes/${currentTheme.parentTheme}`);
               } else {
-                history.push("/");
+                navigate("/");
               }
             }}
           >
@@ -232,7 +232,7 @@ export default function ListThemesPosts(props) {
           <Button
             startIcon={<Home />}
             onClick={() => {
-              history.push("/");
+              navigate("/");
             }}
           >
             inicio
@@ -270,7 +270,7 @@ export default function ListThemesPosts(props) {
               <Divider />
               <CardActionArea
                 onClick={() => {
-                  history.push(`/themes/${item._id}`);
+                  navigate(`/themes/${item._id}`);
                 }}
               >
                 <CardContent>
@@ -328,7 +328,7 @@ export default function ListThemesPosts(props) {
               <Divider />
               <CardActionArea
                 onClick={() => {
-                  history.push(`/posts/${item._id}`);
+                  navigate(`/posts/${item._id}`);
                 }}
               >
                 <CardContent>

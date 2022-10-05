@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { validateUsername, validatePassword } from "../helpers/validators";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [buttonText, setButtonText] = useState("Iniciar Sesión");
@@ -76,7 +76,7 @@ export default function SignIn() {
         (res) => {
           if (res.status === "ok") {
             console.log("logged in");
-            history.push("/");
+            navigate("/");
           } else {
             console.log("error");
             setButtonText("error de credenciales");
@@ -100,7 +100,7 @@ export default function SignIn() {
   };
 
   const handleSignupClick = () => {
-    history.push("/register");
+    navigate("/register");
   };
 
   return (

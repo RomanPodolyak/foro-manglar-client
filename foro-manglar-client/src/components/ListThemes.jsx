@@ -22,7 +22,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Add, MoreVert } from "@material-ui/icons";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { spanishDate } from "../helpers/dateConverter";
 import ThemeCreator from "./ThemeCreator";
 import deleteElement from "../helpers/deleteElement";
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ListThemes(props) {
   const classes = useStyles();
   const [list, setList] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [creatorVisible, setCreatorVisible] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -142,7 +142,7 @@ export default function ListThemes(props) {
               <Divider />
               <CardActionArea
                 onClick={() => {
-                  history.push(`/themes/${item._id}`);
+                  navigate(`/themes/${item._id}`);
                 }}
               >
                 <CardContent>

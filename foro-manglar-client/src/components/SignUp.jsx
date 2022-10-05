@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   validateUsername,
   validatePassword,
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -80,7 +80,7 @@ export default function SignUp() {
         (res) => {
           if (res.status === "ok") {
             console.log("registered");
-            history.push("/");
+            navigate("/");
           } else {
             console.log("error");
             setButtonText("Registrarse");
@@ -104,7 +104,7 @@ export default function SignUp() {
   };
 
   const handleLoginClick = () => {
-    history.push("/login");
+    navigate("/login");
   };
 
   return (
