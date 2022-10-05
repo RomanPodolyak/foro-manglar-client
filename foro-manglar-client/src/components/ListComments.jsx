@@ -185,7 +185,7 @@ export default function ListThemesPosts(props) {
                       handleMenuClick(event, item._id);
                     }}
                     key={item._id}
-                  >
+                    size="large">
                     <MoreVert />
                   </IconButton>
                 }

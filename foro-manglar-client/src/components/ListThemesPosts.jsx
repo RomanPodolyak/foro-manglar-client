@@ -260,7 +260,7 @@ export default function ListThemesPosts(props) {
                       handleItemMenuClick(event, item._id, "theme");
                     }}
                     key={item._id}
-                  >
+                    size="large">
                     <MoreVert />
                   </IconButton>
                 }
@@ -316,7 +316,7 @@ export default function ListThemesPosts(props) {
                       handleItemMenuClick(event, item._id, "post");
                     }}
                     key={item._id}
-                  >
+                    size="large">
                     <MoreVert />
                   </IconButton>
                 }

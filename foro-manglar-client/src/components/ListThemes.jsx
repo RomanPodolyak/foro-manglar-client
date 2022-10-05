@@ -132,7 +132,7 @@ export default function ListThemes(props) {
                       handleMenuClick(event, item._id);
                     }}
                     key={item._id}
-                  >
+                    size="large">
                     <MoreVert />
                   </IconButton>
                 }

@@ -1,16 +1,17 @@
 import dotenv from 'dotenv';
+import { adaptV4Theme } from '@mui/material/styles';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createMuiTheme, ThemeProvider } from '@mui/core';
+import { createMuiTheme, ThemeProvider, StyledEngineProvider } from '@mui/core';
 
 // Load dotenv
 dotenv.config();
 
 // Main theme
-const theme = createMuiTheme({
+const theme = createMuiTheme(adaptV4Theme({
   palette: {
     primary: {
       main: "#338645",
@@ -20,14 +21,16 @@ const theme = createMuiTheme({
     },
     type: "dark",
   },
-});
+}));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </StyledEngineProvider>
   </React.StrictMode>
 );
 

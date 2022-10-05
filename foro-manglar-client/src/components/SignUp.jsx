@@ -183,7 +183,7 @@ export default function SignUp() {
           >
             {buttonText}
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Link onClick={handleLoginClick} variant="body2">
                 ¿Ya tienes cuenta? Inicia sesión
