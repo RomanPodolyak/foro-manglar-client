@@ -18,9 +18,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Add, ArrowBack, Home, MoreVert } from "@material-ui/icons";
+} from "@mui/core";
+import { makeStyles } from "@mui/core/styles";
+import { Add, ArrowBack, Home, MoreVert } from "@mui/icons";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
