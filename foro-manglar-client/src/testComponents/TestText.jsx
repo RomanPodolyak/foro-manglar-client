@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from "@mui/core";
+import { makeStyles, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme) => ({

@@ -1,5 +1,5 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/core";
-import { Add, Cancel, Edit } from "@mui/icons";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Add, Cancel, Edit } from "@mui/icons-material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

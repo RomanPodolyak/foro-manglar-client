@@ -1,4 +1,4 @@
-import { Button } from "@mui/core";
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 /**

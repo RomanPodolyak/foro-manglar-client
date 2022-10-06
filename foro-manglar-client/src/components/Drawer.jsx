@@ -10,16 +10,17 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Box, Hidden } from "@mui/core";
-import { IconButton } from "@mui/core";
-import MenuIcon from "@mui/icons/Menu";
-import LockOpenIcon from "@mui/icons/LockOpen";
-import LockOutlinedIcon from "@mui/icons/LockOutlined";
-import ExitToAppIcon from "@mui/icons/ExitToApp";
+import { Box, Hidden } from "@mui/material";
+import { IconButton } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useNavigate, Outlet } from "react-router-dom";
 import useUser from "../hooks/useUser";
-import AccountCircleIcon from "@mui/icons/AccountCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { logout } from "../helpers/fetch";
+import { Grid } from "@mui/material"
 
 const drawerWidth = 240;
 

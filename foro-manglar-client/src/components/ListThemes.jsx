@@ -17,9 +17,9 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-} from "@mui/core";
+} from "@mui/material";
 import { makeStyles } from "@mui/material/styles";
-import { Add, MoreVert } from "@mui/icons";
+import { Add, MoreVert } from "@mui/icons-material";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
