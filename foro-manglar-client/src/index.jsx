@@ -1,11 +1,15 @@
 import dotenv from 'dotenv';
-import { adaptV4Theme } from '@mui/material/styles';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { adaptV4Theme } from '@mui/material/styles';
+import { createMuiTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createMuiTheme, ThemeProvider, StyledEngineProvider } from '@mui/core';
+import './index.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 // Load dotenv
 dotenv.config();

@@ -1,5 +1,5 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/core";
-import { Add, Cancel, Edit } from "@mui/icons";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Add, Cancel, Edit } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import createElement from "../helpers/createElement";
 import editElement from "../helpers/editElement";

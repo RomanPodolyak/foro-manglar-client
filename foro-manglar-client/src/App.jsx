@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import { Grid } from "@mui/core";
 import Drawer from "./components/Drawer";
 import ListThemes from "./components/ListThemes";
 import ListThemesPosts from "./components/ListThemesPosts";
