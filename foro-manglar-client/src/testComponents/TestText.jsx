@@ -1,5 +1,5 @@
 import { makeStyles, Typography } from "@mui/core";
-import { red } from "@mui/core/colors";
+import { red } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme) => ({
   styledText: {

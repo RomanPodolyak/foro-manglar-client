@@ -1,14 +1,14 @@
 import React from "react";
-import Avatar from "@mui/core/Avatar";
-import Button from "@mui/core/Button";
-import CssBaseline from "@mui/core/CssBaseline";
-import TextField from "@mui/core/TextField";
-import Link from "@mui/core/Link";
-import Grid from "@mui/core/Grid";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons/LockOutlined";
-import Typography from "@mui/core/Typography";
-import { makeStyles } from "@mui/core/styles";
-import Container from "@mui/core/Container";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/material/styles";
+import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {

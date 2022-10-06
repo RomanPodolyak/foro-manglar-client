@@ -19,7 +19,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/core";
-import { makeStyles } from "@mui/core/styles";
+import { makeStyles } from "@mui/material/styles";
 import { Add, ArrowBack, Home, MoreVert } from "@mui/icons";
 import { useState } from "react";
 import { useEffect } from "react";

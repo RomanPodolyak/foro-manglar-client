@@ -1,18 +1,18 @@
 import React from "react";
-import AppBar from "@mui/core/AppBar";
-import Button from "@mui/core/Button";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
 import CameraIcon from "@mui/icons/PhotoCamera";
-import Card from "@mui/core/Card";
-import CardActions from "@mui/core/CardActions";
-import CardContent from "@mui/core/CardContent";
-import CardMedia from "@mui/core/CardMedia";
-import CssBaseline from "@mui/core/CssBaseline";
-import Grid from "@mui/core/Grid";
-import Toolbar from "@mui/core/Toolbar";
-import Typography from "@mui/core/Typography";
-import { makeStyles } from "@mui/core/styles";
-import Container from "@mui/core/Container";
-import Link from "@mui/core/Link";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/material/styles";
+import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
 
 function Copyright() {
   return (
