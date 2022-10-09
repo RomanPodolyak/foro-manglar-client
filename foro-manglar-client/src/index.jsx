@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { adaptV4Theme } from '@mui/material/styles';
@@ -10,9 +9,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-
-// Load dotenv
-dotenv.config();
 
 // Main theme
 const theme = createMuiTheme(adaptV4Theme({
