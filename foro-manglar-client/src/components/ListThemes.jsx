@@ -18,7 +18,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import { makeStyles } from "@mui/material/styles";
+// import { makeStyles } from "@mui/material/styles";
 import { Add, MoreVert } from "@mui/icons-material";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -28,23 +28,23 @@ import ThemeCreator from "./ThemeCreator";
 import deleteElement from "../helpers/deleteElement";
 import getThemes from "../helpers/getThemes";
 
-const useStyles = makeStyles((theme) => ({
-  styledText: {
-    wordBreak: "break-word",
-  },
-  stretch: {
-    width: "100%",
-  },
-  fab: {
-    position: "fixed",
-    bottom: theme.spacing(4),
-    right: theme.spacing(4),
-    marginLeft: "100%",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   styledText: {
+//     wordBreak: "break-word",
+//   },
+//   stretch: {
+//     width: "100%",
+//   },
+//   fab: {
+//     position: "fixed",
+//     bottom: theme.spacing(4),
+//     right: theme.spacing(4),
+//     marginLeft: "100%",
+//   },
+// }));
 
 export default function ListThemes(props) {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [list, setList] = useState([]);
   const navigate = useNavigate();
   const [creatorVisible, setCreatorVisible] = useState(false);
@@ -123,7 +123,9 @@ export default function ListThemes(props) {
       </Grid>
       {list.map((item) => {
         return (
-          <Grid item key={item._id} className={classes.stretch}>
+          <Grid item key={item._id}
+          //FIXME className={classes.stretch}
+          >
             <Card>
               <CardHeader
                 action={
@@ -150,7 +152,7 @@ export default function ListThemes(props) {
                     variant="body1"
                     color="textPrimary"
                     component="p"
-                    className={classes.styledText}
+                    //FIXME className={classes.styledText}
                     paragraph
                   >
                     {item.description}
@@ -166,7 +168,7 @@ export default function ListThemes(props) {
       })}
       <Grid item>
         <Fab
-          className={classes.fab}
+          //FIXME className={classes.fab}
           color="secondary"
           onClick={() => {
             if (edit) {

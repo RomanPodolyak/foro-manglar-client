@@ -7,7 +7,7 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/material/styles";
+// import { makeStyles } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,28 +17,28 @@ import {
   validateEmail,
 } from "../helpers/validators";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(8),
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
+//   avatar: {
+//     margin: theme.spacing(1),
+//     backgroundColor: theme.palette.secondary.main,
+//   },
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(3),
+//   },
+//   submit: {
+//     margin: theme.spacing(3, 0, 2),
+//   },
+// }));
 
 export default function SignUp() {
-  const classes = useStyles();
+  // const classes = useStyles();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -110,14 +110,20 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <div
+      //FIXME className={classes.paper}
+      >
+        <Avatar
+        //FIXME className={classes.avatar}
+        >
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Registrarse
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          //FIXME className={classes.form}
+          noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -175,7 +181,7 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             color={buttonColor}
-            className={classes.submit}
+            //FIXME className={classes.submit}
             onClick={handleSubmit}
             disabled={
               buttonDisabled || usernameError || emailError || passwordError

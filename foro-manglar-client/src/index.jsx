@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { adaptV4Theme } from '@mui/material/styles';
-import { createMuiTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { createMuiTheme, ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
@@ -23,11 +23,24 @@ const theme = createMuiTheme(adaptV4Theme({
   },
 }));
 
+//testing 
+const theme2 = createTheme({
+  palette: {
+    primary: {
+      main: "#338645",
+    },
+    secondary: {
+      main: "#ffa726",
+    },
+    type: "dark",
+  },
+})
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme2}>
         <App />
       </ThemeProvider>
     </StyledEngineProvider>

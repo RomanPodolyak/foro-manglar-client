@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles"; // FIXME
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -24,49 +24,49 @@ import { Grid } from "@mui/material"
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  drawer2: {
-    [theme.breakpoints.up("sm")]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: "flex",
+//   },
+//   appBar: {
+//     zIndex: theme.zIndex.drawer + 1,
+//   },
+//   drawer: {
+//     width: drawerWidth,
+//     flexShrink: 0,
+//   },
+//   drawerPaper: {
+//     width: drawerWidth,
+//   },
+//   drawerContainer: {
+//     overflow: "auto",
+//   },
+//   menuButton: {
+//     marginRight: theme.spacing(2),
+//     [theme.breakpoints.up("sm")]: {
+//       display: "none",
+//     },
+//   },
+//   content: {
+//     flexGrow: 1,
+//     padding: theme.spacing(3),
+//   },
+//   drawer2: {
+//     [theme.breakpoints.up("sm")]: {
+//       width: drawerWidth,
+//       flexShrink: 0,
+//     },
+//   },
+// }));
 
 export default function DrawerManglar(props) {
-  const classes = useStyles();
+  // const classes = useStyles(); // FIXME
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { window } = props;
   const container =
     window !== undefined ? () => window().document.body : undefined;
-  const theme = useTheme();
+  // const theme = useTheme(); // FIXME
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -77,7 +77,7 @@ export default function DrawerManglar(props) {
   const drawer = (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <div className={classes.drawerContainer}>
+        <div sx={{ overflow: 'auto' }}>
           <List>
             <Box display={userData ? "inline" : "none"}>
               <ListItem>
@@ -136,16 +136,17 @@ export default function DrawerManglar(props) {
   );
 
   return (
-    <div className={classes.root}>
+    <div sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" sx={{ zIndex: 10 }}> {/* TODO zIndex = theme.zIndex.drawer + 1 */}
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            className={classes.menuButton}
+            sx={{ mr: '8px' }} // TODO theme.spacing(2)
+            // TODO [theme.breakpoints.up('sm')]:{display:none}
             size="large">
             <MenuIcon />
           </IconButton>
@@ -154,17 +155,30 @@ export default function DrawerManglar(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <nav className={classes.drawer2} aria-label="mailbox folders">
+      <nav
+        // TODO sx: 
+        //
+        // drawer2: {
+        //   [theme.breakpoints.up("sm")]: {
+        //     width: drawerWidth,
+        //     flexShrink: 0,
+        //   }
+        // }
+        aria-label="mailbox folders">
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
             variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
+            anchor='right' // TODO {theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
+            // classes={{
+            //   paper: classes.drawerPaper,
+            // }}
+            // TODO sx
+            // drawerPaper: {
+            //   width: drawerWidth
+            // }
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}
@@ -175,16 +189,24 @@ export default function DrawerManglar(props) {
         <Hidden smDown implementation="css">
           <Drawer
             variant="permanent"
-            classes={{
-              paper: classes.drawerPaper,
-            }}
+          // classes={{
+          //   paper: classes.drawerPaper,
+          // }}
+          // TODO sx
+          // drawerPaper: {
+          //   width: drawerWidth
+          // }
           >
             <Toolbar />
             {drawer}
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
+      <main
+        sx={{
+          flexGrow: 1, // BUG
+          padding: '12px' // BUG
+        }}>
         <Toolbar />
         {props.children}
       </main>

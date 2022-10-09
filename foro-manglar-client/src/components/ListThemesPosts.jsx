@@ -20,7 +20,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
-import { makeStyles } from "@mui/material/styles";
+// import { makeStyles } from "@mui/material/styles";
 import { Add, ArrowBack, Home, MoreVert } from "@mui/icons-material";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -32,23 +32,23 @@ import deleteElement from "../helpers/deleteElement";
 import getThemes from "../helpers/getThemes";
 import getPosts from "../helpers/getPosts";
 
-const useStyles = makeStyles((theme) => ({
-  styledText: {
-    wordBreak: "break-word",
-  },
-  stretch: {
-    width: "100%",
-  },
-  fab: {
-    position: "fixed",
-    bottom: theme.spacing(4),
-    right: theme.spacing(4),
-    marginLeft: "100%",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   styledText: {
+//     wordBreak: "break-word",
+//   },
+//   stretch: {
+//     width: "100%",
+//   },
+//   fab: {
+//     position: "fixed",
+//     bottom: theme.spacing(4),
+//     right: theme.spacing(4),
+//     marginLeft: "100%",
+//   },
+// }));
 
 export default function ListThemesPosts(props) {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [themeList, setThemeList] = useState([]);
   const [postList, setPostList] = useState([]);
   const [currentTheme, setCurrentTheme] = useState({});
@@ -251,7 +251,9 @@ export default function ListThemesPosts(props) {
       )}
       {themeList.map((item) => {
         return (
-          <Grid item key={item._id} className={classes.stretch}>
+          <Grid item key={item._id}
+          //FIXME className={classes.stretch}
+          >
             <Card>
               <CardHeader
                 action={
@@ -279,7 +281,7 @@ export default function ListThemesPosts(props) {
                     color="textPrimary"
                     component="p"
                     paragraph
-                    className={classes.styledText}
+                  //FIXME className={classes.styledText}
                   >
                     {item.description}
                   </Typography>
@@ -336,7 +338,7 @@ export default function ListThemesPosts(props) {
                     variant="body1"
                     color="textPrimary"
                     component="p"
-                    className={classes.styledText}
+                    //FIXME className={classes.styledText}
                     paragraph
                   >
                     {item.content}
@@ -355,7 +357,9 @@ export default function ListThemesPosts(props) {
         );
       })}
       <Grid item>
-        <Fab className={classes.fab} color="secondary" onClick={handleFabClick}>
+        <Fab
+          //FIXME className={classes.fab}
+          color="secondary" onClick={handleFabClick}>
           <Add />
         </Fab>
         <Menu
@@ -419,13 +423,12 @@ export default function ListThemesPosts(props) {
               handleItemMenuClose();
             }}
           >
-            {`Editar ${
-              itemAnchorEl !== null
+            {`Editar ${itemAnchorEl !== null
                 ? itemAnchorEl.name === "theme"
                   ? "tema"
                   : "publicación"
                 : ""
-            }`}
+              }`}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -437,13 +440,12 @@ export default function ListThemesPosts(props) {
               handleOpenDialog();
             }}
           >
-            {`Borrar ${
-              itemAnchorEl !== null
+            {`Borrar ${itemAnchorEl !== null
                 ? itemAnchorEl.name === "theme"
                   ? "tema"
                   : "publicación"
                 : ""
-            }`}
+              }`}
           </MenuItem>
         </Menu>
         <Dialog
@@ -453,23 +455,21 @@ export default function ListThemesPosts(props) {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {`¿Está seguro de que quiere borrar ${
-              itemAnchorEl !== null
+            {`¿Está seguro de que quiere borrar ${itemAnchorEl !== null
                 ? itemAnchorEl.name === "theme"
                   ? "el tema"
                   : "la publicación"
                 : "error"
-            }?`}
+              }?`}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {`Esta acción borrará ${
-                itemAnchorEl !== null
+              {`Esta acción borrará ${itemAnchorEl !== null
                   ? itemAnchorEl.name === "theme"
                     ? "este tema y todos los temas y publicaciones"
                     : "esta publicación y todos los comentarios"
                   : "error"
-              }
+                }
               que contenga. ¿Está realmente seguro de que desea continuar?`}
             </DialogContentText>
           </DialogContent>
@@ -481,8 +481,7 @@ export default function ListThemesPosts(props) {
               onClick={() => {
                 handleCloseDialog();
                 deleteElement(
-                  `${process.env.REACT_APP_SERVER_API}/delete/${
-                    itemAnchorEl.name === "theme" ? "theme" : "post"
+                  `${process.env.REACT_APP_SERVER_API}/delete/${itemAnchorEl.name === "theme" ? "theme" : "post"
                   }`,
                   {
                     [itemAnchorEl.name === "theme"
