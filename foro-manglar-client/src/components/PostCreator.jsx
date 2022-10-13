@@ -28,9 +28,8 @@ export default function PostCreator(props) {
   return (
     <Box>
       <Grid container spacing={1} direction="column">
-        <Typography variant="h5">{`${
-          props.edit ? "Editar" : "Crear nueva"
-        } publicación`}</Typography>
+        <Typography variant="h5">{`${props.edit ? "Editar" : "Crear nueva"
+          } publicación`}</Typography>
         <Grid item>
           <TextField
             id="title"
@@ -79,9 +78,8 @@ export default function PostCreator(props) {
                   title,
                   content,
                 };
-                const url = `${process.env.REACT_APP_SERVER_API}/${
-                  props.edit ? "update" : "create"
-                }/post`;
+                const url = `${process.env.REACT_APP_SERVER_API}/${props.edit ? "update" : "create"
+                  }/post`;
                 if (props.edit) {
                   editElement(url, {
                     ...obj,

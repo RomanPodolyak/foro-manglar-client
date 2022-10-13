@@ -1,8 +1,6 @@
 export default function getComments(themeId) {
   return fetch(
-    `${process.env.REACT_APP_SERVER_API}/read/themes/${
-      themeId === undefined ? "" : themeId
-    }`
+    `${process.env.REACT_APP_SERVER_API}/read/themes/${themeId === undefined ? "" : themeId}`
   )
     .then((res) => res.json())
     .then(

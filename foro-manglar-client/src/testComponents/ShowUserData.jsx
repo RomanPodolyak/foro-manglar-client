@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ShowUserData(props) {
   const [isLoaded, setIsLoaded] = useState(false);

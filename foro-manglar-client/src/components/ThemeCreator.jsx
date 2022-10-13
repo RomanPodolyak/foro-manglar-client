@@ -1,12 +1,11 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { Add, Cancel, Edit } from "@mui/icons-material";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import createElement from "../helpers/createElement";
 import editElement from "../helpers/editElement";
 import getThemes from "../helpers/getThemes";
-import { validateTitle, validateDescription } from "../helpers/validators";
+import { validateDescription, validateTitle } from "../helpers/validators";
 
 export default function ThemeCreator(props) {
   const [title, setTitle] = useState("");
@@ -28,9 +27,8 @@ export default function ThemeCreator(props) {
   return (
     <Box>
       <Grid container spacing={1} direction="column">
-        <Typography variant="h5">{`${
-          props.edit ? "Editar" : "Crear nuevo"
-        } tema`}</Typography>
+        <Typography variant="h5">{`${props.edit ? "Editar" : "Crear nuevo"
+          } tema`}</Typography>
         <Grid item>
           <TextField
             id="title"
@@ -79,9 +77,8 @@ export default function ThemeCreator(props) {
                   title,
                   description,
                 };
-                const url = `${process.env.REACT_APP_SERVER_API}/${
-                  props.edit ? "update" : "create"
-                }/theme`;
+                const url = `${process.env.REACT_APP_SERVER_API}/${props.edit ? "update" : "create"
+                  }/theme`;
                 if (props.edit) {
                   editElement(url, {
                     ...obj,

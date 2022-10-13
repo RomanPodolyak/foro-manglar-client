@@ -30,11 +30,8 @@ export function spanishDate(dateToProcess) {
   const date = new Date(dateToProcess);
   return `${dayOfWeek[date.getDay()].charAt(0).toUpperCase()}${dayOfWeek[
     date.getDay()
-  ].substring(1)}, ${date.getDate()} de ${
-    month[date.getMonth()]
-  } del ${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}, GMT${
-    date.getTimezoneOffset() >= 0 ? "" : "+"
-  }${Math.round((date.getTimezoneOffset() * -1) / 60)}:${
-    (date.getTimezoneOffset() * -1) % 60
-  }${(date.getTimezoneOffset() * -1) % 60 === 0 ? "0" : ""}`;
+  ].substring(1)}, ${date.getDate()} de ${month[date.getMonth()]
+    } del ${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}, GMT${date.getTimezoneOffset() >= 0 ? "" : "+"
+    }${Math.round((date.getTimezoneOffset() * -1) / 60)}:${(date.getTimezoneOffset() * -1) % 60
+    }${(date.getTimezoneOffset() * -1) % 60 === 0 ? "0" : ""}`;
 }

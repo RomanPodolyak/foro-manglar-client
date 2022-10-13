@@ -6,10 +6,10 @@ exports.validateUsername = function (username) {
 };
 exports.validatePassword = function (password) {
   return password.length >= 10 &&
-  password.length <= 1000 &&
-  /[a-z]/.test(password) &&
-  /[A-Z]/.test(password) &&
-  /[0-9]/.test(password);
+    password.length <= 1000 &&
+    /[a-z]/.test(password) &&
+    /[A-Z]/.test(password) &&
+    /[0-9]/.test(password);
 };
 exports.validateEmail = function (email) {
   return /^[a-zA-Z0-9!#$%&’*+\-/=?^_{|}~](?:[a-zA-Z0-9!#$%&’*+\-/=?^_{|}~.][a-zA-Z0-9!#$%&’*+\-/=?^_{|}~]+)*@[a-zA-Z0-9[](?:[a-zA-Z0-9-.][a-zA-Z0-9-]+)*\.[a-zA-Z0-9-]*[a-zA-Z0-9\]]$/.test(
