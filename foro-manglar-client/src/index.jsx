@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { adaptV4Theme } from '@mui/material/styles';
-import { createMuiTheme, ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { CssBaseline } from '@mui/material';
+import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 // Main theme
-const theme = createMuiTheme(adaptV4Theme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#338645",
@@ -19,28 +19,16 @@ const theme = createMuiTheme(adaptV4Theme({
     secondary: {
       main: "#ffa726",
     },
-    type: "dark",
+    mode: "dark"
   },
-}));
-
-//testing 
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#338645",
-    },
-    secondary: {
-      main: "#ffa726",
-    },
-    type: "dark",
-  },
-})
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme2}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline enableColorScheme />
         <App />
       </ThemeProvider>
     </StyledEngineProvider>

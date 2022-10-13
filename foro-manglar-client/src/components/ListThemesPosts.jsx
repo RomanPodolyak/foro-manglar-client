@@ -1,54 +1,19 @@
-import {
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  CardActionArea,
-  Button,
-  Box,
-  CardHeader,
-  Avatar,
-  IconButton,
-  Divider,
-  ButtonGroup,
-  Fab,
-  Menu,
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@mui/material";
-// import { makeStyles } from "@mui/material/styles";
 import { Add, ArrowBack, Home, MoreVert } from "@mui/icons-material";
-import { useState } from "react";
-import { useEffect } from "react";
+import {
+  Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardContent, CardHeader, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, Divider, Fab, Grid, IconButton, Menu,
+  MenuItem, Typography
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { spanishDate } from "../helpers/dateConverter";
+import deleteElement from "../helpers/deleteElement";
+import getPosts from "../helpers/getPosts";
+import getThemes from "../helpers/getThemes";
 import PostCreator from "./PostCreator";
 import ThemeCreator from "./ThemeCreator";
-import deleteElement from "../helpers/deleteElement";
-import getThemes from "../helpers/getThemes";
-import getPosts from "../helpers/getPosts";
-
-// const useStyles = makeStyles((theme) => ({
-//   styledText: {
-//     wordBreak: "break-word",
-//   },
-//   stretch: {
-//     width: "100%",
-//   },
-//   fab: {
-//     position: "fixed",
-//     bottom: theme.spacing(4),
-//     right: theme.spacing(4),
-//     marginLeft: "100%",
-//   },
-// }));
 
 export default function ListThemesPosts(props) {
-  // const classes = useStyles();
   const [themeList, setThemeList] = useState([]);
   const [postList, setPostList] = useState([]);
   const [currentTheme, setCurrentTheme] = useState({});
@@ -252,7 +217,9 @@ export default function ListThemesPosts(props) {
       {themeList.map((item) => {
         return (
           <Grid item key={item._id}
-          //FIXME className={classes.stretch}
+            sx={{
+              width: '100%'
+            }}
           >
             <Card>
               <CardHeader
@@ -281,7 +248,7 @@ export default function ListThemesPosts(props) {
                     color="textPrimary"
                     component="p"
                     paragraph
-                  //FIXME className={classes.styledText}
+                    sx={{ wordBreak: 'break-word' }}
                   >
                     {item.description}
                   </Typography>
@@ -338,7 +305,7 @@ export default function ListThemesPosts(props) {
                     variant="body1"
                     color="textPrimary"
                     component="p"
-                    //FIXME className={classes.styledText}
+                    sx={{ wordBreak: 'break-word' }}
                     paragraph
                   >
                     {item.content}
@@ -358,7 +325,12 @@ export default function ListThemesPosts(props) {
       })}
       <Grid item>
         <Fab
-          //FIXME className={classes.fab}
+          sx={theme => ({
+            position: 'fixed',
+            bottom: theme.spacing(4),
+            right: theme.spacing(4),
+            ml: '100%'
+          })}
           color="secondary" onClick={handleFabClick}>
           <Add />
         </Fab>
@@ -424,10 +396,10 @@ export default function ListThemesPosts(props) {
             }}
           >
             {`Editar ${itemAnchorEl !== null
-                ? itemAnchorEl.name === "theme"
-                  ? "tema"
-                  : "publicación"
-                : ""
+              ? itemAnchorEl.name === "theme"
+                ? "tema"
+                : "publicación"
+              : ""
               }`}
           </MenuItem>
           <MenuItem
@@ -441,10 +413,10 @@ export default function ListThemesPosts(props) {
             }}
           >
             {`Borrar ${itemAnchorEl !== null
-                ? itemAnchorEl.name === "theme"
-                  ? "tema"
-                  : "publicación"
-                : ""
+              ? itemAnchorEl.name === "theme"
+                ? "tema"
+                : "publicación"
+              : ""
               }`}
           </MenuItem>
         </Menu>
@@ -456,19 +428,19 @@ export default function ListThemesPosts(props) {
         >
           <DialogTitle id="alert-dialog-title">
             {`¿Está seguro de que quiere borrar ${itemAnchorEl !== null
-                ? itemAnchorEl.name === "theme"
-                  ? "el tema"
-                  : "la publicación"
-                : "error"
+              ? itemAnchorEl.name === "theme"
+                ? "el tema"
+                : "la publicación"
+              : "error"
               }?`}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               {`Esta acción borrará ${itemAnchorEl !== null
-                  ? itemAnchorEl.name === "theme"
-                    ? "este tema y todos los temas y publicaciones"
-                    : "esta publicación y todos los comentarios"
-                  : "error"
+                ? itemAnchorEl.name === "theme"
+                  ? "este tema y todos los temas y publicaciones"
+                  : "esta publicación y todos los comentarios"
+                : "error"
                 }
               que contenga. ¿Está realmente seguro de que desea continuar?`}
             </DialogContentText>
@@ -489,7 +461,6 @@ export default function ListThemesPosts(props) {
                       : "postId"]: itemAnchorEl.id,
                   }
                 ).then((res) => {
-                  console.log("res :>> ", res);
                   if (res.status === "ok") {
                     if (itemAnchorEl.name === "theme") {
                       getThemes(currentTheme._id).then((res) => {

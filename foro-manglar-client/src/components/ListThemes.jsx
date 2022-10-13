@@ -1,50 +1,18 @@
-import {
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  CardActionArea,
-  CardHeader,
-  IconButton,
-  Divider,
-  Fab,
-  Box,
-  Menu,
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from "@mui/material";
-// import { makeStyles } from "@mui/material/styles";
 import { Add, MoreVert } from "@mui/icons-material";
-import { useState } from "react";
-import { useEffect } from "react";
+import {
+  Box, Button, Card, CardActionArea, CardContent, CardHeader, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, Divider,
+  Fab, Grid, IconButton, Menu,
+  MenuItem, Typography
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { spanishDate } from "../helpers/dateConverter";
-import ThemeCreator from "./ThemeCreator";
 import deleteElement from "../helpers/deleteElement";
 import getThemes from "../helpers/getThemes";
-
-// const useStyles = makeStyles((theme) => ({
-//   styledText: {
-//     wordBreak: "break-word",
-//   },
-//   stretch: {
-//     width: "100%",
-//   },
-//   fab: {
-//     position: "fixed",
-//     bottom: theme.spacing(4),
-//     right: theme.spacing(4),
-//     marginLeft: "100%",
-//   },
-// }));
+import ThemeCreator from "./ThemeCreator";
 
 export default function ListThemes(props) {
-  // const classes = useStyles();
   const [list, setList] = useState([]);
   const navigate = useNavigate();
   const [creatorVisible, setCreatorVisible] = useState(false);
@@ -124,8 +92,7 @@ export default function ListThemes(props) {
       {list.map((item) => {
         return (
           <Grid item key={item._id}
-          //FIXME className={classes.stretch}
-          >
+            sx={{ width: "100%" }}>
             <Card>
               <CardHeader
                 action={
@@ -152,7 +119,7 @@ export default function ListThemes(props) {
                     variant="body1"
                     color="textPrimary"
                     component="p"
-                    //FIXME className={classes.styledText}
+                    sx={{ wordBreak: "break-word" }}
                     paragraph
                   >
                     {item.description}
@@ -168,7 +135,15 @@ export default function ListThemes(props) {
       })}
       <Grid item>
         <Fab
-          //FIXME className={classes.fab}
+          sx={
+            theme =>
+            ({
+              position: "fixed",
+              bottom: theme.spacing(4),
+              right: theme.spacing(4),
+              ml: "100%"
+            })
+          }
           color="secondary"
           onClick={() => {
             if (edit) {
@@ -240,7 +215,6 @@ export default function ListThemes(props) {
                     themeId: anchorEl.id,
                   }
                 ).then((res) => {
-                  console.log("res :>> ", res);
                   if (res.status === "ok") {
                     getThemes().then((res) => {
                       setList(res);
@@ -257,6 +231,6 @@ export default function ListThemes(props) {
           </DialogActions>
         </Dialog>
       </Grid>
-    </Grid>
+    </Grid >
   );
 }
