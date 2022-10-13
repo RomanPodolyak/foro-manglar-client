@@ -53,17 +53,15 @@ export default function SignIn() {
       .then(
         (res) => {
           if (res.status === "ok") {
-            console.log("logged in");
             navigate("/");
           } else {
-            console.log("error");
             setButtonText("error de credenciales");
             setButtonColor("secondary");
             setButtonDisabled(false);
           }
         },
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
           setButtonText("un error ha ocurrido");
           setButtonColor("secondary");
           setButtonDisabled(false);

@@ -8,7 +8,7 @@ export default function getComments(themeId) {
         if (res.status === "ok") {
           return res.data;
         } else {
-          console.log("error fetching themes");
+          console.error("error fetching themes");
           return [];
         }
       },

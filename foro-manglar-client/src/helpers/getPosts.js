@@ -6,7 +6,7 @@ export default function getComments(themeId) {
         if (res.status === "ok") {
           return res.data;
         } else {
-          console.log("error fetching posts");
+          console.error("error fetching posts");
           return [];
         }
       },

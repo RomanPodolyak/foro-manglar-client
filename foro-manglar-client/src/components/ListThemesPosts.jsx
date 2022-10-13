@@ -38,7 +38,7 @@ export default function ListThemesPosts(props) {
           if (res.status === "ok") {
             setThemeList(res.data);
           } else {
-            console.log("error fetching themes");
+            console.error("error fetching themes");
           }
         },
         (error) => {
@@ -56,7 +56,7 @@ export default function ListThemesPosts(props) {
           if (res.status === "ok") {
             setPostList(res.data.reverse());
           } else {
-            console.log("error fetching posts");
+            console.error("error fetching posts");
           }
         },
         (error) => {
@@ -74,7 +74,7 @@ export default function ListThemesPosts(props) {
           if (res.status === "ok") {
             setCurrentTheme(res.data[0]);
           } else {
-            console.log("error fetching current theme");
+            console.error("error fetching current theme");
           }
         },
         (error) => {

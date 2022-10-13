@@ -10,9 +10,6 @@ export function logout() {
     })
     .then(
       (result) => {
-        if (result.status === "ok") {
-          console.log("Logged out");
-        }
         return result.status === "ok";
       },
       (error) => {

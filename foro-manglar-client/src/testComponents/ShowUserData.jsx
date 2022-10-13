@@ -21,7 +21,7 @@ export default function ShowUserData(props) {
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
         }
       );
   }, []);

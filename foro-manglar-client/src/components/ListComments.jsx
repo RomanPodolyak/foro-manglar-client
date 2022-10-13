@@ -39,7 +39,7 @@ export default function ListThemesPosts(props) {
           if (res.status === "ok") {
             setCurrentPost(res.data[0]);
           } else {
-            console.log("error fetching current post");
+            console.error("error fetching current post");
           }
         },
         (error) => {

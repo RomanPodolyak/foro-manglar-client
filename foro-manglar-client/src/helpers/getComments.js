@@ -6,7 +6,7 @@ export default function getComments(postId) {
         if (res.status === "ok") {
           return res.data;
         } else {
-          console.log("error fetching comments");
+          console.error("error fetching comments");
           return [];
         }
       },

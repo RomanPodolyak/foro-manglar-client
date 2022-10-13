@@ -32,7 +32,7 @@ export default function ListThemes(props) {
           setList(res.data);
         },
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
         }
       );
   }, []);

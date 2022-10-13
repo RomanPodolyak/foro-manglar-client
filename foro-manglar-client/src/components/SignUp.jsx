@@ -55,17 +55,15 @@ export default function SignUp() {
       .then(
         (res) => {
           if (res.status === "ok") {
-            console.log("registered");
             navigate("/");
           } else {
-            console.log("error");
             setButtonText("Registrarse");
             setButtonColor("primary");
             setButtonDisabled(false);
           }
         },
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
           setButtonText("Un error ha ocurrido");
           setButtonColor("secondary");
           setButtonDisabled(false);
