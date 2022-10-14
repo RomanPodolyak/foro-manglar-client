@@ -12,19 +12,17 @@ import useUser from "../hooks/useUser";
 
 const drawerWidth = 240;
 
-const drawerPaper = {
-  paper: {
-    width: drawerWidth
-  }
-}
-
 export default function DrawerManglar(props) {
-  const navigate = useNavigate();
+  // states
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const navigate = useNavigate();
+  const theme = useTheme();
+
   const { window } = props;
   const container =
     window !== undefined ? () => window().document.body : undefined;
-  const theme = useTheme();
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -32,83 +30,154 @@ export default function DrawerManglar(props) {
 
   const [userData, setUserData] = useUser();
 
+  const loggedInDrawer = (
+    <List>
+
+      {/* account name */}
+      <ListItem>
+        <ListItemIcon>
+          <AccountCircle />
+        </ListItemIcon>
+        <ListItemText primary={userData ? userData.username : undefined} />
+      </ListItem>
+
+      <Divider />
+
+      {/* logout button */}
+      <ListItemButton
+        href="/"
+        onClick={() => {
+          logout();
+          setUserData();
+        }}
+      >
+        <ListItemIcon>
+          <LockOutlined />
+        </ListItemIcon>
+        <ListItemText>Cerrar sesión</ListItemText>
+      </ListItemButton>
+    </List>
+  )
+
+  const guestDrawer = (
+    <List>
+
+      {/* login button */}
+      <ListItemButton
+        onClick={() => {
+          navigate("/login");
+        }}
+      >
+        <ListItemIcon>
+          <LockOpen />
+        </ListItemIcon>
+        <ListItemText>Iniciar sesión</ListItemText>
+      </ListItemButton>
+
+      {/* register button */}
+      <ListItemButton
+        onClick={() => {
+          navigate("/register");
+        }}
+      >
+        <ListItemIcon>
+          <ExitToApp />
+        </ListItemIcon>
+        <ListItemText>Registrarse</ListItemText>
+      </ListItemButton>
+    </List>
+  )
+
+  const sideDrawer = (
+    userData ? loggedInDrawer : guestDrawer
+  );
+
+  //TODO remove
   const drawer = (
-    <Box sx={{ overflow: 'auto' }}>
-      <List>
+    <List>
+      <Box display={userData ? "inline" : "none"}>
 
-        {/* if no user logged in */}
-        <Box display={userData ? "inline" : "none"}>
-          <ListItem>
-            <ListItemIcon>
-              <AccountCircle />
-            </ListItemIcon>
-            <ListItemText primary={userData ? userData.username : undefined} />
-          </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
+          <ListItemText primary={userData ? userData.username : undefined} />
+        </ListItem>
 
-          <Divider />
+        <Divider />
 
-          <ListItemButton
-            href="/"
-            onClick={() => {
-              logout();
-              setUserData();
-            }}
-          >
-            <ListItemIcon>
-              <LockOutlined />
-            </ListItemIcon>
-            <ListItemText>Cerrar sesión</ListItemText>
-          </ListItemButton>
-        </Box>
-        <Box display={userData ? "none" : "inline"}>
-          <ListItemButton
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            <ListItemIcon>
-              <LockOpen />
-            </ListItemIcon>
-            <ListItemText>Iniciar sesión</ListItemText>
-          </ListItemButton>
-          <ListItemButton
-            onClick={() => {
-              navigate("/register");
-            }}
-          >
-            <ListItemIcon>
-              <ExitToApp />
-            </ListItemIcon>
-            <ListItemText>Registrarse</ListItemText>
-          </ListItemButton>
-        </Box>
-      </List>
-    </Box>
+        <ListItemButton
+          href="/"
+          onClick={() => {
+            logout();
+            setUserData();
+          }}
+        >
+          <ListItemIcon>
+            <LockOutlined />
+          </ListItemIcon>
+          <ListItemText>Cerrar sesión</ListItemText>
+        </ListItemButton>
+
+      </Box>
+      <Box display={userData ? "none" : "inline"}>
+        <ListItemButton
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          <ListItemIcon>
+            <LockOpen />
+          </ListItemIcon>
+          <ListItemText>Iniciar sesión</ListItemText>
+        </ListItemButton>
+        <ListItemButton
+          onClick={() => {
+            navigate("/register");
+          }}
+        >
+          <ListItemIcon>
+            <ExitToApp />
+          </ListItemIcon>
+          <ListItemText>Registrarse</ListItemText>
+        </ListItemButton>
+      </Box>
+    </List>
+  );
+
+  const appBar = (
+    <AppBar position="fixed" sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}>
+      <Toolbar>
+
+        {/* open side drawer button */}
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{
+            mr: theme => theme.spacing(2),
+            display: {
+              sm: 'none'
+            }
+          }}
+          size="large">
+          <Menu />
+        </IconButton>
+
+        {/* title */}
+        <Typography variant="h6" noWrap>
+          Foro Manglar
+        </Typography>
+
+      </Toolbar>
+    </AppBar>
   );
 
   return (
     <div style={{ display: 'flex' }}>
-      <AppBar position="fixed" enableColorOnDark sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{
-              mr: theme => theme.spacing(2),
-              display: {
-                sm: 'none'
-              }
-            }}
-            size="large">
-            <Menu />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Foro Manglar
-          </Typography>
-        </Toolbar>
-      </AppBar>
+
+      {appBar}
 
       <Box component='nav'
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -124,13 +193,12 @@ export default function DrawerManglar(props) {
           anchor={theme.direction === 'rtl' ? 'right' : 'left'}
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          classes={drawerPaper}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
         >
           <Toolbar />
-          {drawer}
+          {sideDrawer}
         </Drawer>
         <Drawer
           variant="permanent"
@@ -138,10 +206,9 @@ export default function DrawerManglar(props) {
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
           }}
-          classes={drawerPaper}
         >
           <Toolbar />
-          {drawer}
+          {sideDrawer}
         </Drawer>
       </Box>
       <div
