@@ -8,7 +8,7 @@ import Link from "@mui/material/Link";
 import { useTheme } from '@mui/material/styles';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validateUsername } from "../helpers/validators";
 

@@ -12,7 +12,7 @@ import Link from "@mui/material/Link";
 import { makeStyles } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import { Fragment } from "react";
 
 function Copyright() {
   return (
@@ -65,7 +65,7 @@ export default function Album() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <Fragment>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
@@ -164,6 +164,6 @@ export default function Album() {
         <Copyright />
       </footer>
       {/* End footer */}
-    </React.Fragment>
+    </Fragment>
   );
 }

@@ -5,7 +5,7 @@ import {
   AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import React from "react";
+import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { logout } from "../helpers/fetch";
 import useUser from "../hooks/useUser";
@@ -14,7 +14,7 @@ const drawerWidth = 240;
 
 export default function DrawerManglar(props) {
   // states
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const navigate = useNavigate();
   const theme = useTheme();
