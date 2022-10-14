@@ -1,52 +1,20 @@
+import { Add, MoreVert } from "@mui/icons-material";
 import {
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  CardActionArea,
-  CardHeader,
-  IconButton,
-  Divider,
-  Fab,
-  Box,
-  Menu,
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Add, MoreVert } from "@material-ui/icons";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+  Box, Button, Card, CardActionArea, CardContent, CardHeader, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, Divider,
+  Fab, Grid, IconButton, Menu,
+  MenuItem, Typography
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { spanishDate } from "../helpers/dateConverter";
-import ThemeCreator from "./ThemeCreator";
 import deleteElement from "../helpers/deleteElement";
 import getThemes from "../helpers/getThemes";
-
-const useStyles = makeStyles((theme) => ({
-  styledText: {
-    wordBreak: "break-word",
-  },
-  stretch: {
-    width: "100%",
-  },
-  fab: {
-    position: "fixed",
-    bottom: theme.spacing(4),
-    right: theme.spacing(4),
-    marginLeft: "100%",
-  },
-}));
+import ThemeCreator from "./ThemeCreator";
 
 export default function ListThemes(props) {
-  const classes = useStyles();
   const [list, setList] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [creatorVisible, setCreatorVisible] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -64,7 +32,7 @@ export default function ListThemes(props) {
           setList(res.data);
         },
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
         }
       );
   }, []);
@@ -123,7 +91,8 @@ export default function ListThemes(props) {
       </Grid>
       {list.map((item) => {
         return (
-          <Grid item key={item._id} className={classes.stretch}>
+          <Grid item key={item._id}
+            sx={{ width: "100%" }}>
             <Card>
               <CardHeader
                 action={
@@ -132,7 +101,7 @@ export default function ListThemes(props) {
                       handleMenuClick(event, item._id);
                     }}
                     key={item._id}
-                  >
+                    size="large">
                     <MoreVert />
                   </IconButton>
                 }
@@ -142,7 +111,7 @@ export default function ListThemes(props) {
               <Divider />
               <CardActionArea
                 onClick={() => {
-                  history.push(`/themes/${item._id}`);
+                  navigate(`/themes/${item._id}`);
                 }}
               >
                 <CardContent>
@@ -150,7 +119,7 @@ export default function ListThemes(props) {
                     variant="body1"
                     color="textPrimary"
                     component="p"
-                    className={classes.styledText}
+                    sx={{ wordBreak: "break-word" }}
                     paragraph
                   >
                     {item.description}
@@ -166,7 +135,15 @@ export default function ListThemes(props) {
       })}
       <Grid item>
         <Fab
-          className={classes.fab}
+          sx={
+            theme =>
+            ({
+              position: "fixed",
+              bottom: theme.spacing(4),
+              right: theme.spacing(4),
+              ml: "100%"
+            })
+          }
           color="secondary"
           onClick={() => {
             if (edit) {
@@ -238,7 +215,6 @@ export default function ListThemes(props) {
                     themeId: anchorEl.id,
                   }
                 ).then((res) => {
-                  console.log("res :>> ", res);
                   if (res.status === "ok") {
                     getThemes().then((res) => {
                       setList(res);
@@ -255,6 +231,6 @@ export default function ListThemes(props) {
           </DialogActions>
         </Dialog>
       </Grid>
-    </Grid>
+    </Grid >
   );
 }

@@ -14,11 +14,9 @@ export default function useUser() {
       .then(
         (result) => {
           setUserData(result.user);
-          console.log("Fetched user data");
-          console.log("result.user :>> ", result.user);
         },
         (error) => {
-          console.log("Failed fetching user data");
+          console.error("Failed fetching user data");
           console.error(error);
         }
       );

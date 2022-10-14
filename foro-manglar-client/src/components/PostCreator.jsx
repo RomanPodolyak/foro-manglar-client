@@ -1,8 +1,8 @@
-import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
-import { Add, Cancel, Edit } from "@material-ui/icons";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Add, Cancel, Edit } from "@mui/icons-material";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import createElement from "../helpers/createElement";
 import editElement from "../helpers/editElement";
 import getPosts from "../helpers/getPosts";
@@ -11,7 +11,7 @@ import { validateTitle, validateContent } from "../helpers/validators";
 export default function PostCreator(props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const [titleError, setTitleError] = useState(false);
   const [contentError, setContentError] = useState(false);
 
@@ -28,9 +28,8 @@ export default function PostCreator(props) {
   return (
     <Box>
       <Grid container spacing={1} direction="column">
-        <Typography variant="h5">{`${
-          props.edit ? "Editar" : "Crear nueva"
-        } publicación`}</Typography>
+        <Typography variant="h5">{`${props.edit ? "Editar" : "Crear nueva"
+          } publicación`}</Typography>
         <Grid item>
           <TextField
             id="title"
@@ -79,9 +78,8 @@ export default function PostCreator(props) {
                   title,
                   content,
                 };
-                const url = `${process.env.REACT_APP_SERVER_API}/${
-                  props.edit ? "update" : "create"
-                }/post`;
+                const url = `${process.env.REACT_APP_SERVER_API}/${props.edit ? "update" : "create"
+                  }/post`;
                 if (props.edit) {
                   editElement(url, {
                     ...obj,
@@ -98,7 +96,7 @@ export default function PostCreator(props) {
                   createElement(url, obj).then((res) => {
                     if (res.status === "ok") {
                       props.hide();
-                      history.push(`/posts/${res.info.objectId}`);
+                      navigate(`/posts/${res.info.objectId}`);
                     }
                   });
                 }

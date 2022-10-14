@@ -1,8 +1,6 @@
 export default function getComments(themeId) {
   return fetch(
-    `${process.env.REACT_APP_SERVER_API}/read/themes/${
-      themeId === undefined ? "" : themeId
-    }`
+    `${process.env.REACT_APP_SERVER_API}/read/themes/${themeId === undefined ? "" : themeId}`
   )
     .then((res) => res.json())
     .then(
@@ -10,7 +8,7 @@ export default function getComments(themeId) {
         if (res.status === "ok") {
           return res.data;
         } else {
-          console.log("error fetching themes");
+          console.error("error fetching themes");
           return [];
         }
       },

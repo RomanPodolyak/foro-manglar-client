@@ -1,5 +1,5 @@
-import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
-import { Add, Cancel, Edit } from "@material-ui/icons";
+import { Add, Cancel, Edit } from "@mui/icons-material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import createElement from "../helpers/createElement";
 import editElement from "../helpers/editElement";
@@ -21,9 +21,8 @@ export default function PostCreator(props) {
   return (
     <Box>
       <Grid container spacing={1} direction="column">
-        <Typography variant="h5">{`${
-          props.edit ? "Editar" : "Crear nuevo"
-        } comentario`}</Typography>
+        <Typography variant="h5">{`${props.edit ? "Editar" : "Crear nuevo"
+          } comentario`}</Typography>
         <Grid item>
           <TextField
             id="content"
@@ -54,9 +53,8 @@ export default function PostCreator(props) {
                   parentPost: props.id,
                   content,
                 };
-                const url = `${process.env.REACT_APP_SERVER_API}/${
-                  props.edit ? "update" : "create"
-                }/comment`;
+                const url = `${process.env.REACT_APP_SERVER_API}/${props.edit ? "update" : "create"
+                  }/comment`;
 
                 if (props.edit) {
                   editElement(url, {

@@ -1,41 +1,19 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { validateUsername, validatePassword } from "../helpers/validators";
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import { useTheme } from '@mui/material/styles';
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { validatePassword, validateUsername } from "../helpers/validators";
 
 export default function SignIn() {
-  const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [buttonText, setButtonText] = useState("Iniciar Sesión");
@@ -75,17 +53,15 @@ export default function SignIn() {
       .then(
         (res) => {
           if (res.status === "ok") {
-            console.log("logged in");
-            history.push("/");
+            navigate("/");
           } else {
-            console.log("error");
             setButtonText("error de credenciales");
             setButtonColor("secondary");
             setButtonDisabled(false);
           }
         },
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
           setButtonText("un error ha ocurrido");
           setButtonColor("secondary");
           setButtonDisabled(false);
@@ -100,20 +76,39 @@ export default function SignIn() {
   };
 
   const handleSignupClick = () => {
-    history.push("/register");
+    navigate("/register");
   };
+
+  const theme = useTheme();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <div
+        style={{
+          marginTop: theme.spacing(8),
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Avatar
+          sx={theme => ({
+            m: theme.spacing(1),
+            backgroundColor: theme.palette.secondary.main
+          })}
+        >
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Iniciar sesión
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          style={{
+            width: '100%',
+            marginTop: theme.spacing(1)
+          }}
+          noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -151,7 +146,9 @@ export default function SignIn() {
             fullWidth
             variant="contained"
             color={buttonColor}
-            className={classes.submit}
+            sx={theme => ({
+              m: theme.spacing(3, 0, 2)
+            })}
             onClick={handleSubmit}
             disabled={buttonDisabled || passwordError || usernameError}
           >

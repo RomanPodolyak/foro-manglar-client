@@ -1,16 +1,17 @@
-import dotenv from 'dotenv';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { CssBaseline } from '@mui/material';
+import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-
-// Load dotenv
-dotenv.config();
 
 // Main theme
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#338645",
@@ -18,16 +19,19 @@ const theme = createMuiTheme({
     secondary: {
       main: "#ffa726",
     },
-    type: "dark",
+    mode: "dark"
   },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline enableColorScheme />
+        <App />
+      </ThemeProvider>
+    </StyledEngineProvider>
   </React.StrictMode>
 );
 

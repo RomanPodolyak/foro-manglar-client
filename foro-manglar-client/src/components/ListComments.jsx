@@ -1,56 +1,23 @@
+import { Add, ArrowBack, Home, MoreVert } from "@mui/icons-material";
 import {
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Button,
-  CardHeader,
-  Avatar,
-  IconButton,
-  Divider,
-  ButtonGroup,
-  Fab,
-  Box,
-  Menu,
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Add, ArrowBack, Home, MoreVert } from "@material-ui/icons";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+  Avatar, Box, Button, ButtonGroup, Card,
+  CardContent, CardHeader, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, Divider, Fab, Grid, IconButton, Menu,
+  MenuItem, Typography
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { spanishDate } from "../helpers/dateConverter";
-import CommentCreator from "./CommentCreator";
-import getComments from "../helpers/getComments";
 import deleteElement from "../helpers/deleteElement";
-
-const useStyles = makeStyles((theme) => ({
-  styledText: {
-    wordBreak: "break-word",
-  },
-  stretch: {
-    width: "100%",
-  },
-  fab: {
-    position: "fixed",
-    bottom: theme.spacing(4),
-    right: theme.spacing(4),
-    marginLeft: "100%",
-  },
-}));
+import getComments from "../helpers/getComments";
+import CommentCreator from "./CommentCreator";
 
 export default function ListThemesPosts(props) {
-  const classes = useStyles();
   const [commentList, setCommentList] = useState([]);
   const [currentPost, setCurrentPost] = useState({});
   const [commentCreatorVisible, setCommentCreatorVisible] = useState(false);
   const { postId } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [currentSelectedComment, setCurrentSelectedComment] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
@@ -59,7 +26,6 @@ export default function ListThemesPosts(props) {
   //get list of comments
   useEffect(() => {
     getComments(postId).then((res) => {
-      console.log(res);
       setCommentList(res.reverse());
     });
   }, [postId]);
@@ -73,7 +39,7 @@ export default function ListThemesPosts(props) {
           if (res.status === "ok") {
             setCurrentPost(res.data[0]);
           } else {
-            console.log("error fetching current post");
+            console.error("error fetching current post");
           }
         },
         (error) => {
@@ -148,7 +114,7 @@ export default function ListThemesPosts(props) {
           <Button
             startIcon={<ArrowBack />}
             onClick={() => {
-              history.push(`/themes/${currentPost.parentTheme}`);
+              navigate(`/themes/${currentPost.parentTheme}`);
             }}
           >
             Atrás
@@ -156,7 +122,7 @@ export default function ListThemesPosts(props) {
           <Button
             startIcon={<Home />}
             onClick={() => {
-              history.push("/");
+              navigate("/");
             }}
           >
             inicio
@@ -175,7 +141,9 @@ export default function ListThemesPosts(props) {
       )}
       {commentList.map((item) => {
         return (
-          <Grid item key={item._id} className={classes.stretch}>
+          <Grid item key={item._id}
+            sx={{ width: '100%' }}
+          >
             <Card>
               <CardHeader
                 avatar={<Avatar alt={item.originalPoster} src="localhost" />}
@@ -185,7 +153,7 @@ export default function ListThemesPosts(props) {
                       handleMenuClick(event, item._id);
                     }}
                     key={item._id}
-                  >
+                    size="large">
                     <MoreVert />
                   </IconButton>
                 }
@@ -200,7 +168,7 @@ export default function ListThemesPosts(props) {
                   variant="body1"
                   color="textPrimary"
                   component="p"
-                  className={classes.styledText}
+                  sx={{ wordBreak: 'break-word' }}
                 >
                   {item.content}
                 </Typography>
@@ -211,7 +179,12 @@ export default function ListThemesPosts(props) {
       })}
       <Grid item>
         <Fab
-          className={classes.fab}
+          sx={theme => ({
+            position: 'fixed',
+            bottom: theme.spacing(4),
+            right: theme.spacing(4),
+            ml: '100%'
+          })}
           color="secondary"
           onClick={() => {
             if (edit) {
@@ -283,7 +256,6 @@ export default function ListThemesPosts(props) {
                     commentId: anchorEl.id,
                   }
                 ).then((res) => {
-                  console.log("res :>> ", res);
                   if (res.status === "ok") {
                     getComments(currentPost._id).then((res) => {
                       setCommentList(res.reverse());

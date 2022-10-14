@@ -1,6 +1,5 @@
-import { Box } from "@material-ui/core";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
 
 export default function ShowUserData(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,7 +21,7 @@ export default function ShowUserData(props) {
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
         }
       );
   }, []);

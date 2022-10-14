@@ -1,45 +1,21 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import { useTheme } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  validateUsername,
-  validatePassword,
-  validateEmail,
+  validateEmail, validatePassword, validateUsername
 } from "../helpers/validators";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 export default function SignUp() {
-  const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -79,17 +55,15 @@ export default function SignUp() {
       .then(
         (res) => {
           if (res.status === "ok") {
-            console.log("registered");
-            history.push("/");
+            navigate("/");
           } else {
-            console.log("error");
             setButtonText("Registrarse");
             setButtonColor("primary");
             setButtonDisabled(false);
           }
         },
         (error) => {
-          console.log("error :>> ", error);
+          console.error(error);
           setButtonText("Un error ha ocurrido");
           setButtonColor("secondary");
           setButtonDisabled(false);
@@ -104,20 +78,39 @@ export default function SignUp() {
   };
 
   const handleLoginClick = () => {
-    history.push("/login");
+    navigate("/login");
   };
+
+  const theme = useTheme();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <div
+        style={{
+          marginTop: theme.spacing(8),
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
+        <Avatar
+          sx={theme => ({
+            margin: theme.spacing(1),
+            backgroundColor: theme.palette.secondary.main
+          })}
+        >
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Registrarse
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          style={{
+            width: "100%", // Fix IE 11 issue.
+            marginTop: theme.spacing(3)
+          }}
+          noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -175,7 +168,9 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             color={buttonColor}
-            className={classes.submit}
+            sx={theme => ({
+              margin: theme.spacing(3, 0, 2)
+            })}
             onClick={handleSubmit}
             disabled={
               buttonDisabled || usernameError || emailError || passwordError
@@ -183,7 +178,7 @@ export default function SignUp() {
           >
             {buttonText}
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Link onClick={handleLoginClick} variant="body2">
                 ¿Ya tienes cuenta? Inicia sesión
@@ -192,6 +187,6 @@ export default function SignUp() {
           </Grid>
         </form>
       </div>
-    </Container>
+    </Container >
   );
 }
