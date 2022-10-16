@@ -3,10 +3,10 @@ export default function getComments(themeId) {
     .then((res) => res.json())
     .then(
       (res) => {
-        if (res.status === "ok") {
+        if (res.status === 'ok') {
           return res.data;
         } else {
-          console.error("error fetching posts");
+          console.error('error fetching posts');
           return [];
         }
       },

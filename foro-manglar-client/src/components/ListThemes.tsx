@@ -1,16 +1,30 @@
-import { Add, MoreVert } from "@mui/icons-material";
+import {Add, MoreVert} from '@mui/icons-material';
 import {
-  Box, Button, Card, CardActionArea, CardContent, CardHeader, Dialog, DialogActions, DialogContent,
-  DialogContentText, DialogTitle, Divider,
-  Fab, Grid, IconButton, Menu,
-  MenuItem, Typography
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { spanishDate } from "../helpers/dateConverter";
-import deleteElement from "../helpers/deleteElement";
-import getThemes from "../helpers/getThemes";
-import ThemeCreator from "./ThemeCreator";
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Fab,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography
+} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {spanishDate} from '../helpers/dateConverter';
+import deleteElement from '../helpers/deleteElement';
+import getThemes from '../helpers/getThemes';
+import ThemeCreator from './ThemeCreator';
 
 export default function ListThemes(props) {
   const [list, setList] = useState([]);
@@ -21,17 +35,17 @@ export default function ListThemes(props) {
   const [currentSelectedTheme, setCurrentSelectedTheme] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
 
-  //get list of themes
+  // get list of themes
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_API}/read/themes`)
-      .then((res) => {
+      .then(res => {
         return res.json();
       })
       .then(
-        (res) => {
+        res => {
           setList(res.data);
         },
-        (error) => {
+        error => {
           console.error(error);
         }
       );
@@ -58,8 +72,8 @@ export default function ListThemes(props) {
     setOpenDialog(false);
   };
 
-  const getSelectedTheme = (id) => {
-    if (id === "") {
+  const getSelectedTheme = id => {
+    if (id === '') {
       setCurrentSelectedTheme({});
       return;
     }
@@ -73,9 +87,13 @@ export default function ListThemes(props) {
   };
 
   return (
-    <Grid container spacing={2} direction="column">
+    <Grid
+      container
+      spacing={2}
+      direction='column'
+    >
       <Grid item>
-        <Box display={creatorVisible ? "block" : "none"}>
+        <Box display={creatorVisible ? 'block' : 'none'}>
           <ThemeCreator
             hide={handleCreator}
             update={setList}
@@ -85,23 +103,30 @@ export default function ListThemes(props) {
         </Box>
       </Grid>
       <Grid item>
-        <Typography variant="h4" paragraph>
+        <Typography
+          variant='h4'
+          paragraph
+        >
           Temas
         </Typography>
       </Grid>
-      {list.map((item) => {
+      {list.map(item => {
         return (
-          <Grid item key={item._id}
-            sx={{ width: "100%" }}>
+          <Grid
+            item
+            key={item._id}
+            sx={{width: '100%'}}
+          >
             <Card>
               <CardHeader
                 action={
                   <IconButton
-                    onClick={(event) => {
+                    onClick={event => {
                       handleMenuClick(event, item._id);
                     }}
                     key={item._id}
-                    size="large">
+                    size='large'
+                  >
                     <MoreVert />
                   </IconButton>
                 }
@@ -116,15 +141,18 @@ export default function ListThemes(props) {
               >
                 <CardContent>
                   <Typography
-                    variant="body1"
-                    color="textPrimary"
-                    component="p"
-                    sx={{ wordBreak: "break-word" }}
+                    variant='body1'
+                    color='textPrimary'
+                    component='p'
+                    sx={{wordBreak: 'break-word'}}
                     paragraph
                   >
                     {item.description}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                  >
                     {spanishDate(item.createdAt)}
                   </Typography>
                 </CardContent>
@@ -135,22 +163,19 @@ export default function ListThemes(props) {
       })}
       <Grid item>
         <Fab
-          sx={
-            theme =>
-            ({
-              position: "fixed",
-              bottom: theme.spacing(4),
-              right: theme.spacing(4),
-              ml: "100%"
-            })
-          }
-          color="secondary"
+          sx={theme => ({
+            position: 'fixed',
+            bottom: theme.spacing(4),
+            right: theme.spacing(4),
+            ml: '100%'
+          })}
+          color='secondary'
           onClick={() => {
             if (edit) {
               setEdit(false);
             }
             setCreatorVisible(true);
-            getSelectedTheme("");
+            getSelectedTheme('');
           }}
         >
           <Add />
@@ -158,7 +183,7 @@ export default function ListThemes(props) {
       </Grid>
       <Grid item>
         <Menu
-          id="item-menu"
+          id='item-menu'
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
@@ -190,20 +215,23 @@ export default function ListThemes(props) {
         <Dialog
           open={openDialog}
           onClose={handleCloseDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id="alert-dialog-title">
-            {"¿Está seguro de que quiere borrar el tema?"}
+          <DialogTitle id='alert-dialog-title'>
+            {'¿Está seguro de que quiere borrar el tema?'}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText id='alert-dialog-description'>
               Esta acción borrará este tema y todos los temas y publicaciones
               que contenga. ¿Está realmente seguro de que desea continuar?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
+            <Button
+              onClick={handleCloseDialog}
+              color='primary'
+            >
               cancelar
             </Button>
             <Button
@@ -212,18 +240,18 @@ export default function ListThemes(props) {
                 deleteElement(
                   `${process.env.REACT_APP_SERVER_API}/delete/theme`,
                   {
-                    themeId: anchorEl.id,
+                    themeId: anchorEl.id
                   }
-                ).then((res) => {
-                  if (res.status === "ok") {
-                    getThemes().then((res) => {
+                ).then(res => {
+                  if (res.status === 'ok') {
+                    getThemes().then(res => {
                       setList(res);
                     });
                   }
                 });
                 handleMenuClose();
               }}
-              color="secondary"
+              color='secondary'
               autoFocus
             >
               BORRAR
@@ -231,6 +259,6 @@ export default function ListThemes(props) {
           </DialogActions>
         </Dialog>
       </Grid>
-    </Grid >
+    </Grid>
   );
 }

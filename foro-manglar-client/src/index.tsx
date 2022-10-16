@@ -2,9 +2,13 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { CssBaseline } from '@mui/material';
-import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
-import { StrictMode } from 'react';
+import {CssBaseline} from '@mui/material';
+import {
+  createTheme,
+  StyledEngineProvider,
+  ThemeProvider
+} from '@mui/material/styles';
+import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
@@ -14,13 +18,13 @@ import reportWebVitals from './reportWebVitals';
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#338645",
+      main: '#338645'
     },
     secondary: {
-      main: "#ffa726",
+      main: '#ffa726'
     },
-    mode: "dark"
-  },
+    mode: 'dark'
+  }
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

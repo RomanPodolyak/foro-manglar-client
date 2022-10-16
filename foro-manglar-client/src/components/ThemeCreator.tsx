@@ -1,15 +1,15 @@
-import { Add, Cancel, Edit } from "@mui/icons-material";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import createElement from "../helpers/createElement";
-import editElement from "../helpers/editElement";
-import getThemes from "../helpers/getThemes";
-import { validateDescription, validateTitle } from "../helpers/validators";
+import {Add, Cancel, Edit} from '@mui/icons-material';
+import {Box, Button, Grid, TextField, Typography} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import createElement from '../helpers/createElement';
+import editElement from '../helpers/editElement';
+import getThemes from '../helpers/getThemes';
+import {validateDescription, validateTitle} from '../helpers/validators';
 
 export default function ThemeCreator(props) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const navigate = useNavigate();
   const [titleError, setTitleError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
@@ -19,26 +19,31 @@ export default function ThemeCreator(props) {
       setTitle(props.currentTheme.title);
       setDescription(props.currentTheme.description);
     } else {
-      setTitle("");
-      setDescription("");
+      setTitle('');
+      setDescription('');
     }
   }, [props.currentTheme, props.edit]);
 
   return (
     <Box>
-      <Grid container spacing={1} direction="column">
-        <Typography variant="h5">{`${props.edit ? "Editar" : "Crear nuevo"
-          } tema`}</Typography>
+      <Grid
+        container
+        spacing={1}
+        direction='column'
+      >
+        <Typography variant='h5'>{`${
+          props.edit ? 'Editar' : 'Crear nuevo'
+        } tema`}</Typography>
         <Grid item>
           <TextField
-            id="title"
-            name="title"
-            variant="outlined"
-            label="Título"
-            placeholder="3-200 letras"
+            id='title'
+            name='title'
+            variant='outlined'
+            label='Título'
+            placeholder='3-200 letras'
             fullWidth
             value={title}
-            onChange={(event) => {
+            onChange={event => {
               setTitle(event.target.value);
               setTitleError(!validateTitle(event.target.value));
             }}
@@ -48,52 +53,57 @@ export default function ThemeCreator(props) {
         </Grid>
         <Grid item>
           <TextField
-            id="description"
-            name="description"
-            variant="outlined"
-            label="Descripción"
-            placeholder="Máximo 500 letras"
+            id='description'
+            name='description'
+            variant='outlined'
+            label='Descripción'
+            placeholder='Máximo 500 letras'
             multiline
             fullWidth
             rows={6}
             value={description}
-            onChange={(event) => {
+            onChange={event => {
               setDescription(event.target.value);
               setDescriptionError(!validateDescription(event.target.value));
             }}
             error={descriptionError}
           />
         </Grid>
-        <Grid item container spacing={1}>
+        <Grid
+          item
+          container
+          spacing={1}
+        >
           <Grid item>
             <Button
-              color="primary"
-              variant="contained"
+              color='primary'
+              variant='contained'
               startIcon={props.edit ? <Edit /> : <Add />}
               disabled={titleError || descriptionError}
               onClick={() => {
                 const obj = {
                   parentTheme: props.id,
                   title,
-                  description,
+                  description
                 };
-                const url = `${process.env.REACT_APP_SERVER_API}/${props.edit ? "update" : "create"
-                  }/theme`;
+                const url = `${process.env.REACT_APP_SERVER_API}/${
+                  props.edit ? 'update' : 'create'
+                }/theme`;
                 if (props.edit) {
                   editElement(url, {
                     ...obj,
-                    themeId: props.currentTheme._id,
-                  }).then((res) => {
-                    if (res.status === "ok") {
+                    themeId: props.currentTheme._id
+                  }).then(res => {
+                    if (res.status === 'ok') {
                       props.hide();
-                      getThemes(props.id).then((res) => {
+                      getThemes(props.id).then(res => {
                         props.update(res);
                       });
                     }
                   });
                 } else {
-                  createElement(url, obj).then((res) => {
-                    if (res.status === "ok") {
+                  createElement(url, obj).then(res => {
+                    if (res.status === 'ok') {
                       props.hide();
                       navigate(`/themes/${res.info.objectId}`);
                     }
@@ -101,13 +111,13 @@ export default function ThemeCreator(props) {
                 }
               }}
             >
-              {props.edit ? "editar" : "crear"}
+              {props.edit ? 'editar' : 'crear'}
             </Button>
           </Grid>
           <Grid item>
             <Button
-              color="secondary"
-              variant="contained"
+              color='secondary'
+              variant='contained'
               startIcon={<Cancel />}
               onClick={props.hide}
             >

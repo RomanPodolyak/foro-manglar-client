@@ -1,48 +1,63 @@
-import { Add, ArrowBack, Home, MoreVert } from "@mui/icons-material";
+import {Add, ArrowBack, Home, MoreVert} from '@mui/icons-material';
 import {
-  Avatar, Box, Button, ButtonGroup, Card,
-  CardContent, CardHeader, Dialog, DialogActions, DialogContent,
-  DialogContentText, DialogTitle, Divider, Fab, Grid, IconButton, Menu,
-  MenuItem, Typography
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { spanishDate } from "../helpers/dateConverter";
-import deleteElement from "../helpers/deleteElement";
-import getComments from "../helpers/getComments";
-import CommentCreator from "./CommentCreator";
+  Avatar,
+  Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardContent,
+  CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Fab,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography
+} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {spanishDate} from '../helpers/dateConverter';
+import deleteElement from '../helpers/deleteElement';
+import getComments from '../helpers/getComments';
+import CommentCreator from './CommentCreator';
 
 export default function ListThemesPosts(props) {
   const [commentList, setCommentList] = useState([]);
   const [currentPost, setCurrentPost] = useState({});
   const [commentCreatorVisible, setCommentCreatorVisible] = useState(false);
-  const { postId } = useParams();
+  const {postId} = useParams();
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [currentSelectedComment, setCurrentSelectedComment] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  //get list of comments
+  // get list of comments
   useEffect(() => {
-    getComments(postId).then((res) => {
+    getComments(postId).then(res => {
       setCommentList(res.reverse());
     });
   }, [postId]);
 
-  //get current post
+  // get current post
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_API}/read/post/${postId}`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (res) => {
-          if (res.status === "ok") {
+        res => {
+          if (res.status === 'ok') {
             setCurrentPost(res.data[0]);
           } else {
-            console.error("error fetching current post");
+            console.error('error fetching current post');
           }
         },
-        (error) => {
+        error => {
           console.error(error);
         }
       );
@@ -69,8 +84,8 @@ export default function ListThemesPosts(props) {
     setOpenDialog(false);
   };
 
-  const getSelectedComment = (id) => {
-    if (id === "") {
+  const getSelectedComment = id => {
+    if (id === '') {
       setCurrentSelectedComment({});
       return;
     }
@@ -84,22 +99,35 @@ export default function ListThemesPosts(props) {
   };
 
   return (
-    <Grid container spacing={2} direction="column">
+    <Grid
+      container
+      spacing={2}
+      direction='column'
+    >
       <Grid item>
-        <Typography variant="h5">{currentPost.title}</Typography>
-        <Typography variant="subtitle1" paragraph>
+        <Typography variant='h5'>{currentPost.title}</Typography>
+        <Typography
+          variant='subtitle1'
+          paragraph
+        >
           {currentPost.content}
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography
+          variant='subtitle2'
+          color='textSecondary'
+        >
           {currentPost.originalPoster}
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography
+          variant='subtitle2'
+          color='textSecondary'
+        >
           {spanishDate(currentPost.createdAt)}
         </Typography>
         <Divider />
       </Grid>
       <Grid item>
-        <Box display={commentCreatorVisible ? "block" : "none"}>
+        <Box display={commentCreatorVisible ? 'block' : 'none'}>
           <CommentCreator
             hide={hideCommentCreator}
             id={currentPost._id}
@@ -110,7 +138,7 @@ export default function ListThemesPosts(props) {
         </Box>
       </Grid>
       <Grid item>
-        <ButtonGroup variant="outlined">
+        <ButtonGroup variant='outlined'>
           <Button
             startIcon={<ArrowBack />}
             onClick={() => {
@@ -122,7 +150,7 @@ export default function ListThemesPosts(props) {
           <Button
             startIcon={<Home />}
             onClick={() => {
-              navigate("/");
+              navigate('/');
             }}
           >
             inicio
@@ -130,30 +158,41 @@ export default function ListThemesPosts(props) {
         </ButtonGroup>
       </Grid>
       <Grid item>
-        <Typography variant="h4">Comentarios</Typography>
+        <Typography variant='h4'>Comentarios</Typography>
       </Grid>
       {commentList.length === 0 && (
         <Grid item>
-          <Typography variant="subtitle1" display="block">
+          <Typography
+            variant='subtitle1'
+            display='block'
+          >
             No existen comentarios dentro de esta publicación
           </Typography>
         </Grid>
       )}
-      {commentList.map((item) => {
+      {commentList.map(item => {
         return (
-          <Grid item key={item._id}
-            sx={{ width: '100%' }}
+          <Grid
+            item
+            key={item._id}
+            sx={{width: '100%'}}
           >
             <Card>
               <CardHeader
-                avatar={<Avatar alt={item.originalPoster} src="localhost" />}
+                avatar={
+                  <Avatar
+                    alt={item.originalPoster}
+                    src='localhost'
+                  />
+                }
                 action={
                   <IconButton
-                    onClick={(event) => {
+                    onClick={event => {
                       handleMenuClick(event, item._id);
                     }}
                     key={item._id}
-                    size="large">
+                    size='large'
+                  >
                     <MoreVert />
                   </IconButton>
                 }
@@ -165,10 +204,10 @@ export default function ListThemesPosts(props) {
               <Divider />
               <CardContent>
                 <Typography
-                  variant="body1"
-                  color="textPrimary"
-                  component="p"
-                  sx={{ wordBreak: 'break-word' }}
+                  variant='body1'
+                  color='textPrimary'
+                  component='p'
+                  sx={{wordBreak: 'break-word'}}
                 >
                   {item.content}
                 </Typography>
@@ -185,13 +224,13 @@ export default function ListThemesPosts(props) {
             right: theme.spacing(4),
             ml: '100%'
           })}
-          color="secondary"
+          color='secondary'
           onClick={() => {
             if (edit) {
               setEdit(false);
             }
             setCommentCreatorVisible(true);
-            getSelectedComment("");
+            getSelectedComment('');
           }}
         >
           <Add />
@@ -199,7 +238,7 @@ export default function ListThemesPosts(props) {
       </Grid>
       <Grid item>
         <Menu
-          id="item-menu"
+          id='item-menu'
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
@@ -231,20 +270,23 @@ export default function ListThemesPosts(props) {
         <Dialog
           open={openDialog}
           onClose={handleCloseDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id="alert-dialog-title">
-            {"¿Está seguro de que quiere borrar el comentario?"}
+          <DialogTitle id='alert-dialog-title'>
+            {'¿Está seguro de que quiere borrar el comentario?'}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText id='alert-dialog-description'>
               Esta acción borrará este comentario. ¿Está realmente seguro de que
               desea continuar?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
+            <Button
+              onClick={handleCloseDialog}
+              color='primary'
+            >
               cancelar
             </Button>
             <Button
@@ -253,18 +295,18 @@ export default function ListThemesPosts(props) {
                 deleteElement(
                   `${process.env.REACT_APP_SERVER_API}/delete/comment`,
                   {
-                    commentId: anchorEl.id,
+                    commentId: anchorEl.id
                   }
-                ).then((res) => {
-                  if (res.status === "ok") {
-                    getComments(currentPost._id).then((res) => {
+                ).then(res => {
+                  if (res.status === 'ok') {
+                    getComments(currentPost._id).then(res => {
                       setCommentList(res.reverse());
                     });
                   }
                 });
                 handleMenuClose();
               }}
-              color="secondary"
+              color='secondary'
               autoFocus
             >
               BORRAR

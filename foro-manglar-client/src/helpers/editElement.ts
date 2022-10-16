@@ -1,11 +1,11 @@
-export default function createElement(url, object) {
+export default function editElement(url, object) {
   const requestOptions = {
-    method: "POST",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(object),
-    credentials: "include",
+    credentials: 'include'
   };
 
   return fetch(url, requestOptions)

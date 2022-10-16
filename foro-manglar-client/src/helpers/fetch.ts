@@ -1,8 +1,8 @@
 export function logout() {
   const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include'
   };
   fetch(`${process.env.REACT_APP_SERVER_API}/logout`, requestOptions)
     .then((res) => {
@@ -10,7 +10,7 @@ export function logout() {
     })
     .then(
       (result) => {
-        return result.status === "ok";
+        return result.status === 'ok';
       },
       (error) => {
         console.error(error);

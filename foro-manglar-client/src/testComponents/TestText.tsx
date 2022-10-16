@@ -1,10 +1,11 @@
-import { makeStyles, Typography } from "@mui/material";
-import { red } from "@mui/material/colors";
+import {makeStyles, Typography} from '@mui/material';
+import {red} from '@mui/material/colors';
+import React from 'react';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   styledText: {
-    color: red[900],
-  },
+    color: red[900]
+  }
 }));
 
 export default function TestText() {
@@ -25,7 +26,10 @@ export default function TestText() {
         varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt.
         Lorem donec massa sapien faucibus et molestie ac.
       </Typography>
-      <Typography paragraph className={classes.styledText}>
+      <Typography
+        paragraph
+        className={classes.styledText}
+      >
         Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
         ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar elementum
         integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi

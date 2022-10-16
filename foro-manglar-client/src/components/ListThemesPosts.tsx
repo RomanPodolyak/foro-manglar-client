@@ -1,17 +1,34 @@
-import { Add, ArrowBack, Home, MoreVert } from "@mui/icons-material";
+import {Add, ArrowBack, Home, MoreVert} from '@mui/icons-material';
 import {
-  Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardContent, CardHeader, Dialog, DialogActions, DialogContent,
-  DialogContentText, DialogTitle, Divider, Fab, Grid, IconButton, Menu,
-  MenuItem, Typography
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { spanishDate } from "../helpers/dateConverter";
-import deleteElement from "../helpers/deleteElement";
-import getPosts from "../helpers/getPosts";
-import getThemes from "../helpers/getThemes";
-import PostCreator from "./PostCreator";
-import ThemeCreator from "./ThemeCreator";
+  Avatar,
+  Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Fab,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography
+} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {spanishDate} from '../helpers/dateConverter';
+import deleteElement from '../helpers/deleteElement';
+import getPosts from '../helpers/getPosts';
+import getThemes from '../helpers/getThemes';
+import PostCreator from './PostCreator';
+import ThemeCreator from './ThemeCreator';
 
 export default function ListThemesPosts(props) {
   const [themeList, setThemeList] = useState([]);
@@ -19,7 +36,7 @@ export default function ListThemesPosts(props) {
   const [currentTheme, setCurrentTheme] = useState({});
   const [themeCreatorVisible, setThemeCreatorVisible] = useState(false);
   const [postCreatorVisible, setPostCreatorVisible] = useState(false);
-  const { themeId } = useParams();
+  const {themeId} = useParams();
   const navigate = useNavigate();
   const [fabAnchorEl, setFabAnchorEl] = useState(null);
   const [itemAnchorEl, setItemAnchorEl] = useState(null);
@@ -29,61 +46,61 @@ export default function ListThemesPosts(props) {
   const [currentSelectedPost, setCurrentSelectedPost] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
 
-  //get list of themes
+  // get list of themes
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_API}/read/themes/${themeId}`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (res) => {
-          if (res.status === "ok") {
+        res => {
+          if (res.status === 'ok') {
             setThemeList(res.data);
           } else {
-            console.error("error fetching themes");
+            console.error('error fetching themes');
           }
         },
-        (error) => {
+        error => {
           console.error(error);
         }
       );
   }, [themeId]);
 
-  //get list of posts
+  // get list of posts
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_API}/read/posts/${themeId}`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (res) => {
-          if (res.status === "ok") {
+        res => {
+          if (res.status === 'ok') {
             setPostList(res.data.reverse());
           } else {
-            console.error("error fetching posts");
+            console.error('error fetching posts');
           }
         },
-        (error) => {
+        error => {
           console.error(error);
         }
       );
   }, [themeId]);
 
-  //get current theme
+  // get current theme
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_API}/read/theme/${themeId}`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (res) => {
-          if (res.status === "ok") {
+        res => {
+          if (res.status === 'ok') {
             setCurrentTheme(res.data[0]);
           } else {
-            console.error("error fetching current theme");
+            console.error('error fetching current theme');
           }
         },
-        (error) => {
+        error => {
           console.error(error);
         }
       );
   }, [themeId]);
 
-  const handleFabClick = (event) => {
+  const handleFabClick = event => {
     setFabAnchorEl(event.currentTarget);
   };
 
@@ -109,8 +126,8 @@ export default function ListThemesPosts(props) {
     setPostCreatorVisible(false);
   };
 
-  const getSelectedTheme = (id) => {
-    if (id === "") {
+  const getSelectedTheme = id => {
+    if (id === '') {
       setCurrentSelectedTheme({});
       return;
     }
@@ -123,8 +140,8 @@ export default function ListThemesPosts(props) {
     setCurrentSelectedTheme({});
   };
 
-  const getSelectedPost = (id) => {
-    if (id === "") {
+  const getSelectedPost = id => {
+    if (id === '') {
       setCurrentSelectedPost({});
       return;
     }
@@ -146,22 +163,35 @@ export default function ListThemesPosts(props) {
   };
 
   return (
-    <Grid container spacing={2} direction="column">
+    <Grid
+      container
+      spacing={2}
+      direction='column'
+    >
       <Grid item>
-        <Typography variant="h5">{currentTheme.title}</Typography>
-        <Typography variant="subtitle1" paragraph>
+        <Typography variant='h5'>{currentTheme.title}</Typography>
+        <Typography
+          variant='subtitle1'
+          paragraph
+        >
           {currentTheme.description}
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography
+          variant='subtitle2'
+          color='textSecondary'
+        >
           {currentTheme.originalPoster}
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography
+          variant='subtitle2'
+          color='textSecondary'
+        >
           {spanishDate(currentTheme.createdAt)}
         </Typography>
         <Divider />
       </Grid>
       <Grid item>
-        <Box display={themeCreatorVisible ? "block" : "none"}>
+        <Box display={themeCreatorVisible ? 'block' : 'none'}>
           <ThemeCreator
             hide={hideThemeCreator}
             id={currentTheme._id}
@@ -170,7 +200,7 @@ export default function ListThemesPosts(props) {
             edit={themeEdit}
           />
         </Box>
-        <Box display={postCreatorVisible ? "block" : "none"}>
+        <Box display={postCreatorVisible ? 'block' : 'none'}>
           <PostCreator
             hide={hidePostCreator}
             id={currentTheme._id}
@@ -181,14 +211,14 @@ export default function ListThemesPosts(props) {
         </Box>
       </Grid>
       <Grid item>
-        <ButtonGroup variant="outlined">
+        <ButtonGroup variant='outlined'>
           <Button
             startIcon={<ArrowBack />}
             onClick={() => {
               if (currentTheme.parentTheme) {
                 navigate(`/themes/${currentTheme.parentTheme}`);
               } else {
-                navigate("/");
+                navigate('/');
               }
             }}
           >
@@ -197,7 +227,7 @@ export default function ListThemesPosts(props) {
           <Button
             startIcon={<Home />}
             onClick={() => {
-              navigate("/");
+              navigate('/');
             }}
           >
             inicio
@@ -205,18 +235,23 @@ export default function ListThemesPosts(props) {
         </ButtonGroup>
       </Grid>
       <Grid item>
-        <Typography variant="h4">Temas</Typography>
+        <Typography variant='h4'>Temas</Typography>
       </Grid>
       {themeList.length === 0 && (
         <Grid item>
-          <Typography variant="subtitle1" display="block">
+          <Typography
+            variant='subtitle1'
+            display='block'
+          >
             No existen temas dentro de este tema
           </Typography>
         </Grid>
       )}
-      {themeList.map((item) => {
+      {themeList.map(item => {
         return (
-          <Grid item key={item._id}
+          <Grid
+            item
+            key={item._id}
             sx={{
               width: '100%'
             }}
@@ -225,11 +260,12 @@ export default function ListThemesPosts(props) {
               <CardHeader
                 action={
                   <IconButton
-                    onClick={(event) => {
-                      handleItemMenuClick(event, item._id, "theme");
+                    onClick={event => {
+                      handleItemMenuClick(event, item._id, 'theme');
                     }}
                     key={item._id}
-                    size="large">
+                    size='large'
+                  >
                     <MoreVert />
                   </IconButton>
                 }
@@ -244,15 +280,18 @@ export default function ListThemesPosts(props) {
               >
                 <CardContent>
                   <Typography
-                    variant="body1"
-                    color="textPrimary"
-                    component="p"
+                    variant='body1'
+                    color='textPrimary'
+                    component='p'
                     paragraph
-                    sx={{ wordBreak: 'break-word' }}
+                    sx={{wordBreak: 'break-word'}}
                   >
                     {item.description}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                  >
                     {spanishDate(item.createdAt)}
                   </Typography>
                 </CardContent>
@@ -263,29 +302,41 @@ export default function ListThemesPosts(props) {
       })}
       <Grid item>
         <Box mt={4}>
-          <Typography variant="h4">Publicaciones</Typography>
+          <Typography variant='h4'>Publicaciones</Typography>
         </Box>
       </Grid>
       {postList.length === 0 && (
         <Grid item>
-          <Typography variant="subtitle1" display="block">
+          <Typography
+            variant='subtitle1'
+            display='block'
+          >
             No existen publicaciones dentro de este tema
           </Typography>
         </Grid>
       )}
-      {postList.map((item) => {
+      {postList.map(item => {
         return (
-          <Grid item key={item._id}>
+          <Grid
+            item
+            key={item._id}
+          >
             <Card>
               <CardHeader
-                avatar={<Avatar alt={item.originalPoster} src="localhost" />}
+                avatar={
+                  <Avatar
+                    alt={item.originalPoster}
+                    src='localhost'
+                  />
+                }
                 action={
                   <IconButton
-                    onClick={(event) => {
-                      handleItemMenuClick(event, item._id, "post");
+                    onClick={event => {
+                      handleItemMenuClick(event, item._id, 'post');
                     }}
                     key={item._id}
-                    size="large">
+                    size='large'
+                  >
                     <MoreVert />
                   </IconButton>
                 }
@@ -302,18 +353,18 @@ export default function ListThemesPosts(props) {
               >
                 <CardContent>
                   <Typography
-                    variant="body1"
-                    color="textPrimary"
-                    component="p"
-                    sx={{ wordBreak: 'break-word' }}
+                    variant='body1'
+                    color='textPrimary'
+                    component='p'
+                    sx={{wordBreak: 'break-word'}}
                     paragraph
                   >
                     {item.content}
                   </Typography>
                   <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
                   >
                     {spanishDate(item.createdAt)}
                   </Typography>
@@ -331,11 +382,13 @@ export default function ListThemesPosts(props) {
             right: theme.spacing(4),
             ml: '100%'
           })}
-          color="secondary" onClick={handleFabClick}>
+          color='secondary'
+          onClick={handleFabClick}
+        >
           <Add />
         </Fab>
         <Menu
-          id="fab-menu"
+          id='fab-menu'
           anchorEl={fabAnchorEl}
           keepMounted
           open={Boolean(fabAnchorEl)}
@@ -348,7 +401,7 @@ export default function ListThemesPosts(props) {
               }
               setPostCreatorVisible(false);
               setThemeCreatorVisible(true);
-              getSelectedTheme("");
+              getSelectedTheme('');
               handleFabMenuClose();
             }}
           >
@@ -361,7 +414,7 @@ export default function ListThemesPosts(props) {
               }
               setThemeCreatorVisible(false);
               setPostCreatorVisible(true);
-              getSelectedPost("");
+              getSelectedPost('');
               handleFabMenuClose();
             }}
           >
@@ -369,7 +422,7 @@ export default function ListThemesPosts(props) {
           </MenuItem>
         </Menu>
         <Menu
-          id="item-menu"
+          id='item-menu'
           anchorEl={itemAnchorEl}
           keepMounted
           open={Boolean(itemAnchorEl)}
@@ -377,14 +430,14 @@ export default function ListThemesPosts(props) {
         >
           <MenuItem
             onClick={() => {
-              if (itemAnchorEl.name === "theme") {
+              if (itemAnchorEl.name === 'theme') {
                 if (!themeEdit) {
                   setThemeEdit(true);
                 }
                 getSelectedTheme(itemAnchorEl.id);
                 setThemeCreatorVisible(true);
                 setPostCreatorVisible(false);
-              } else if (itemAnchorEl.name === "post") {
+              } else if (itemAnchorEl.name === 'post') {
                 if (!postEdit) {
                   setPostEdit(true);
                 }
@@ -395,79 +448,86 @@ export default function ListThemesPosts(props) {
               handleItemMenuClose();
             }}
           >
-            {`Editar ${itemAnchorEl !== null
-              ? itemAnchorEl.name === "theme"
-                ? "tema"
-                : "publicación"
-              : ""
-              }`}
+            {`Editar ${
+              itemAnchorEl !== null
+                ? itemAnchorEl.name === 'theme'
+                  ? 'tema'
+                  : 'publicación'
+                : ''
+            }`}
           </MenuItem>
           <MenuItem
             onClick={() => {
-              if (itemAnchorEl === "theme") {
+              if (itemAnchorEl === 'theme') {
                 getSelectedTheme(itemAnchorEl.id);
-              } else if (itemAnchorEl === "post") {
+              } else if (itemAnchorEl === 'post') {
                 getSelectedPost(itemAnchorEl.id);
               }
               handleOpenDialog();
             }}
           >
-            {`Borrar ${itemAnchorEl !== null
-              ? itemAnchorEl.name === "theme"
-                ? "tema"
-                : "publicación"
-              : ""
-              }`}
+            {`Borrar ${
+              itemAnchorEl !== null
+                ? itemAnchorEl.name === 'theme'
+                  ? 'tema'
+                  : 'publicación'
+                : ''
+            }`}
           </MenuItem>
         </Menu>
         <Dialog
           open={openDialog}
           onClose={handleCloseDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id="alert-dialog-title">
-            {`¿Está seguro de que quiere borrar ${itemAnchorEl !== null
-              ? itemAnchorEl.name === "theme"
-                ? "el tema"
-                : "la publicación"
-              : "error"
-              }?`}
+          <DialogTitle id='alert-dialog-title'>
+            {`¿Está seguro de que quiere borrar ${
+              itemAnchorEl !== null
+                ? itemAnchorEl.name === 'theme'
+                  ? 'el tema'
+                  : 'la publicación'
+                : 'error'
+            }?`}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {`Esta acción borrará ${itemAnchorEl !== null
-                ? itemAnchorEl.name === "theme"
-                  ? "este tema y todos los temas y publicaciones"
-                  : "esta publicación y todos los comentarios"
-                : "error"
-                }
+            <DialogContentText id='alert-dialog-description'>
+              {`Esta acción borrará ${
+                itemAnchorEl !== null
+                  ? itemAnchorEl.name === 'theme'
+                    ? 'este tema y todos los temas y publicaciones'
+                    : 'esta publicación y todos los comentarios'
+                  : 'error'
+              }
               que contenga. ¿Está realmente seguro de que desea continuar?`}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
+            <Button
+              onClick={handleCloseDialog}
+              color='primary'
+            >
               cancelar
             </Button>
             <Button
               onClick={() => {
                 handleCloseDialog();
                 deleteElement(
-                  `${process.env.REACT_APP_SERVER_API}/delete/${itemAnchorEl.name === "theme" ? "theme" : "post"
+                  `${process.env.REACT_APP_SERVER_API}/delete/${
+                    itemAnchorEl.name === 'theme' ? 'theme' : 'post'
                   }`,
                   {
-                    [itemAnchorEl.name === "theme"
-                      ? "themeId"
-                      : "postId"]: itemAnchorEl.id,
+                    [itemAnchorEl.name === 'theme' ? 'themeId' : 'postId']:
+                      itemAnchorEl.id
                   }
-                ).then((res) => {
-                  if (res.status === "ok") {
-                    if (itemAnchorEl.name === "theme") {
-                      getThemes(currentTheme._id).then((res) => {
+                ).then(res => {
+                  if (res.status === 'ok') {
+                    if (itemAnchorEl.name === 'theme') {
+                      getThemes(currentTheme._id).then(res => {
                         setThemeList(res);
                       });
                     } else {
-                      getPosts(currentTheme._id).then((res) => {
+                      getPosts(currentTheme._id).then(res => {
                         setPostList(res.reverse());
                       });
                     }
@@ -475,7 +535,7 @@ export default function ListThemesPosts(props) {
                 });
                 handleItemMenuClose();
               }}
-              color="secondary"
+              color='secondary'
               autoFocus
             >
               BORRAR

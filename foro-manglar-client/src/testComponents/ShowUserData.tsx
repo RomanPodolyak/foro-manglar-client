@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
+import {Box} from '@mui/material';
+import React, {useEffect, useState} from 'react';
 
 export default function ShowUserData(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -7,20 +7,20 @@ export default function ShowUserData(props) {
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_API}/test`, {
-      credentials: "include",
+      credentials: 'include'
     })
-      .then((res) => {
+      .then(res => {
         return res.json();
       })
       .then(
-        (result) => {
+        result => {
           setIsLoaded(true);
           setData(result);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
-        (error) => {
+        error => {
           console.error(error);
         }
       );
