@@ -17,6 +17,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
+  parser: '@typescript-eslint/parser',
   plugins: ['react'],
   rules: {
     // changes from default
